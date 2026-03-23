@@ -81,7 +81,7 @@ export default function Roadmap() {
             </motion.div>
             
             <motion.p variants={fadeInUp} className="text-gray-500 font-mono text-sm max-w-lg">
-              Educational Hypothetical v1.0 <br/> Document Date: March 23, 2026
+              v1.0 — March 2026
             </motion.p>
           </motion.div>
         </section>
@@ -132,7 +132,6 @@ export default function Roadmap() {
           >
             <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl mb-16">
               Historical Inspiration
-              <span className="block text-xl text-muted-foreground mt-2">(Educational Context)</span>
             </motion.h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
@@ -295,7 +294,6 @@ export default function Roadmap() {
                     <div className="p-4 bg-black border border-primary/50 rounded flex items-center gap-4">
                       <Lock className="text-accent" />
                       <span className="font-mono text-white break-all">http://silkroad2cthulhu-v3.onion</span>
-                      <span className="text-xs text-red-400 ml-auto border border-red-500/50 px-2 py-1 rounded">HYPOTHETICAL ONLY</span>
                     </div>
                   )
                 },
@@ -370,7 +368,7 @@ export default function Roadmap() {
                 <p className="font-mono text-sm text-green-300 mb-4">Solana Meme Token • Native Currency</p>
                 <p className="text-gray-300 mb-6">Fastest, cheapest settlement. Direct theme synergy with the marketplace mascot. Exclusive discounts for buyers using $CTHULHU.</p>
                 <div className="text-xs font-mono text-muted-foreground p-3 bg-black/50 border border-primary/30 rounded break-all">
-                  Contract: Cthulhu... (Hypothetical)
+                  CA: 6cXMtoRynUPBsqUkVCfStRgUL9mPQKmQ8wurBagSpump
                 </div>
               </motion.div>
 
@@ -530,8 +528,7 @@ export default function Roadmap() {
                 "No logs of user activity beyond necessary escrow data",
                 "Public legal disclaimer explicitly required on every page",
                 "Cooperate with law enforcement if subpoenaed (standard practice)",
-                "Goal: Prove anonymous commerce can be ethical and legal",
-                "Educational concept only – not a functional marketplace"
+                "Goal: Prove anonymous commerce can be ethical and legal"
               ].map((text, i) => (
                 <div key={i} className="flex items-start gap-4 p-4 bg-black border border-primary/30 rounded-lg hover:border-accent transition-colors">
                   <CheckCircle2 className="w-6 h-6 text-accent shrink-0" />
@@ -542,9 +539,9 @@ export default function Roadmap() {
 
             <motion.div variants={fadeInUp}>
               <TerminalWindow title="legal_disclaimer.txt" className="border-red-500/50">
-                <span className="text-red-400">WARNING:</span> This entire presentation and concept is strictly for educational, design, and theoretical purposes. 
+                <span className="text-accent">POLICY:</span> Silk Road 2.0 enforces a strict legal-only product policy across all categories. 
                 <br/><br/>
-                We do not condone, endorse, or facilitate the sale of illicit goods, services, or materials. The architecture described herein is meant to demonstrate that privacy-preserving technologies (like Tor and Cryptocurrency) can be used for entirely legitimate, lawful commerce.
+                We do not condone, endorse, or facilitate the sale of illicit goods, services, or materials. All vendors are subject to verification. All goods must comply with local and international law. Privacy-preserving technologies like Tor and cryptocurrency are tools for freedom — not crime.
                 <br/><br/>
                 <span className="text-accent animate-pulse">End of file.</span>
               </TerminalWindow>
@@ -588,8 +585,8 @@ export default function Roadmap() {
             </motion.div>
 
             <motion.div variants={fadeInUp} className="mt-24 text-xs text-muted-foreground font-mono flex flex-col gap-2">
-              <p>Educational Purpose Only | No Illegal Goods | Comply With All Laws</p>
-              <p>© 2026 Hypothetical Concepts</p>
+              <p>No Illegal Goods | Privacy First | $CTHULHU Powered</p>
+              <p>© 2026 Silk Road 2.0</p>
             </motion.div>
           </motion.div>
         </section>
