@@ -42,7 +42,7 @@ export function Sidebar({ sections, activeId }: SidebarProps) {
       </div>
 
       <div className="p-4 border-t border-primary/30 text-xs text-muted-foreground font-mono">
-        v1.0.0-hypothetical
+        v1.0.0
       </div>
     </nav>
   );
