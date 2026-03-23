@@ -1,6 +1,10 @@
 {
-  "buildCommand": "PORT=3000 BASE_PATH=/ vite build --config vite.config.ts",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist/public",
   "installCommand": "npm install",
-  "framework": "vite"
+  "framework": "vite",
+  "env": {
+    "PORT": "3000",
+    "BASE_PATH": "/"
+  }
 }
