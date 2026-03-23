@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+
+  /* Color Palette based on prompt */
+  --color-background: 0 0% 4%; /* #0a0a0a */
+  --color-foreground: 0 0% 100%; /* #ffffff */
+  
+  --color-primary: 120 100% 20%; /* Dark Green #006400 */
+  --color-primary-foreground: 0 0% 100%;
+  
+  --color-accent: 150 100% 40%; /* Bright Accent Green #00CC66 */
+  --color-accent-foreground: 0 0% 4%;
+  
+  --color-muted: 120 20% 10%;
+  --color-muted-foreground: 120 10% 60%;
+  
+  --color-border: 120 100% 20%;
+  --color-card: 0 0% 6%;
+  --color-card-border: 120 50% 15%;
+}
+
+:root {
+  --background: 0 0% 4%;
+  --foreground: 0 0% 100%;
+  --primary: 120 100% 20%;
+  --accent: 150 100% 40%;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans antialiased selection:bg-accent selection:text-background;
+    /* Subtle background grid base */
+    background-image: linear-gradient(rgba(0, 204, 102, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 204, 102, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-mono font-bold tracking-tight text-accent;
+  }
+}
+
+@layer utilities {
+  .scanlines {
+    position: relative;
+  }
+  .scanlines::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px rgba(0, 204, 102, 0.5), 0 0 20px rgba(0, 204, 102, 0.3);
+  }
+
+  .box-glow {
+    box-shadow: 0 0 15px rgba(0, 100, 0, 0.4), inset 0 0 20px rgba(0, 100, 0, 0.1);
+  }
+
+  .box-glow-accent {
+    box-shadow: 0 0 20px rgba(0, 204, 102, 0.4), inset 0 0 15px rgba(0, 204, 102, 0.1);
+  }
+
+  .animate-blink {
+    animation: blink 1s step-end infinite;
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Custom scrollbar for terminal feel */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--color-background));
+  border-left: 1px solid hsl(var(--color-border));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--color-primary));
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--color-accent));
+}
