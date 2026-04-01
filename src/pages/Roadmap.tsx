@@ -247,6 +247,11 @@ export default function Roadmap() {
                   <div style={{ color: G, fontSize: 13, marginBottom: 8, letterSpacing: "0.08em" }}>{f.title}</div>
                   <div style={{ color: GDIM, fontSize: 12, lineHeight: 1.6 }}>{f.desc}</div>
                 </motion.div>
+            <motion.div variants={fadeUp} style={{ marginTop: 16 }}>
+              <a href="/browse" style={{ display: "inline-block", padding: "10px 24px", border: "1px solid #00ff4155", color: "#00ff4199", fontFamily: "'Share Tech Mono', monospace", fontSize: 12, letterSpacing: "0.1em", textDecoration: "none", borderRadius: 3 }}>
+                🧅 BROWSE SITE IN-PAGE →
+              </a>
+            </motion.div>
               ))}
             </motion.div>
           </motion.div>
@@ -285,6 +290,11 @@ export default function Roadmap() {
                   <div style={{ display: "inline-block", padding: "2px 10px", border: `1px solid ${G}`, color: G, fontSize: 10, letterSpacing: "0.15em", marginBottom: 12 }}>{p.badge}</div>
                   <div style={{ color: GDIM, fontSize: 12 }}>{p.desc}</div>
                 </motion.div>
+            <motion.div variants={fadeUp} style={{ marginTop: 16 }}>
+              <a href="/browse" style={{ display: "inline-block", padding: "10px 24px", border: "1px solid #00ff4155", color: "#00ff4199", fontFamily: "'Share Tech Mono', monospace", fontSize: 12, letterSpacing: "0.1em", textDecoration: "none", borderRadius: 3 }}>
+                🧅 BROWSE SITE IN-PAGE →
+              </a>
+            </motion.div>
               ))}
             </motion.div>
           </motion.div>
@@ -357,6 +367,11 @@ export default function Roadmap() {
                     </div>
                   ))}
                 </motion.div>
+            <motion.div variants={fadeUp} style={{ marginTop: 16 }}>
+              <a href="/browse" style={{ display: "inline-block", padding: "10px 24px", border: "1px solid #00ff4155", color: "#00ff4199", fontFamily: "'Share Tech Mono', monospace", fontSize: 12, letterSpacing: "0.1em", textDecoration: "none", borderRadius: 3 }}>
+                🧅 BROWSE SITE IN-PAGE →
+              </a>
+            </motion.div>
               ))}
             </motion.div>
           </motion.div>
