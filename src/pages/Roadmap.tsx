@@ -9,6 +9,7 @@ const CTHU_CA = "6cXMtoRynUPBsqUkVCfStRgUL9mPQKmQ8wurBagSpump";
 const SECTIONS = [
   { id: "cover",    label: "Boot Screen" },
   { id: "access",   label: "How To Access" },
+  { id: "tutorial", label: "Video Tutorial" },
   { id: "features", label: "Features" },
   { id: "payment",  label: "Payment System" },
   { id: "token",    label: "$CTHU Token" },
@@ -57,45 +58,32 @@ export default function Roadmap() {
           position: "relative",
           overflow: "hidden",
         }}>
-          {/* Background video */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              opacity: 0.35,
-              zIndex: 0,
-            }}
-          >
-            <source src="/video/hero.mp4" type="video/mp4" />
-          </video>
-
-          {/* Dark overlay on top of video */}
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.8) 100%)",
-            zIndex: 1,
+            backgroundImage: `radial-gradient(ellipse at center, #00ff410d 0%, transparent 70%)`,
+            pointerEvents: "none",
           }} />
 
-          {/* Grid overlay */}
-          <div style={{
-            position: "absolute", inset: 0,
-            backgroundImage: `linear-gradient(rgba(0,255,65,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,65,0.04) 1px, transparent 1px)`,
-            backgroundSize: "24px 24px",
-            zIndex: 2,
-          }} />
-
-          <motion.div initial="hidden" animate="visible" variants={stagger} style={{ zIndex: 3, maxWidth: 700, position: "relative" }}>
+          <motion.div initial="hidden" animate="visible" variants={stagger} style={{ zIndex: 1, maxWidth: 700, position: "relative" }}>
             <motion.div variants={fadeUp} style={{ marginBottom: 16 }}>
               <span style={{ fontSize: 11, letterSpacing: "0.3em", color: GDIM }}>
                 TOR HIDDEN SERVICE v3 — SOLANA MAINNET
               </span>
+            </motion.div>
+
+            <motion.div variants={fadeUp}>
+              <img
+                src="/cthulhu-favicon.jpg"
+                alt="Cthulhu"
+                style={{
+                  width: 100, height: 100,
+                  borderRadius: "50%",
+                  border: `2px solid #00ff4166`,
+                  boxShadow: `0 0 30px #00ff4144, 0 0 60px #00ff4122`,
+                  marginBottom: 24,
+                  objectFit: "cover",
+                }}
+              />
             </motion.div>
 
             <motion.div variants={fadeUp}>
@@ -132,30 +120,17 @@ export default function Roadmap() {
                 target="_blank"
                 rel="noreferrer"
                 style={{
-                  display: "inline-block",
-                  padding: "12px 28px",
-                  border: `1px solid ${G}`,
-                  color: "#000",
-                  background: G,
-                  fontFamily: "'Share Tech Mono', monospace",
-                  fontSize: 13,
-                  letterSpacing: "0.1em",
-                  cursor: "pointer",
-                  textDecoration: "none",
-                  boxShadow: `0 0 20px #00ff4166`,
-                  borderRadius: 3,
+                  display: "inline-block", padding: "12px 28px",
+                  border: `1px solid ${G}`, color: "#000", background: G,
+                  fontFamily: "'Share Tech Mono', monospace", fontSize: 13, letterSpacing: "0.1em",
+                  textDecoration: "none", boxShadow: `0 0 20px #00ff4166`, borderRadius: 3,
                 }}
               >
                 ↓ DOWNLOAD TOR BROWSER
               </a>
               <div style={{
-                padding: "12px 28px",
-                border: `1px solid #00ff4155`,
-                color: G,
-                fontFamily: "'Share Tech Mono', monospace",
-                fontSize: 13,
-                letterSpacing: "0.1em",
-                borderRadius: 3,
+                padding: "12px 28px", border: `1px solid #00ff4155`, color: G,
+                fontFamily: "'Share Tech Mono', monospace", fontSize: 13, letterSpacing: "0.1em", borderRadius: 3,
               }}>
                 $CTHU POWERED
               </div>
@@ -180,7 +155,7 @@ export default function Roadmap() {
                   { n: "03", cmd: "Paste the onion address", sub: ONION },
                   { n: "04", cmd: "Create an account", sub: "Username + passphrase only. No email. No KYC. 30 seconds." },
                   { n: "05", cmd: "Fund your wallet", sub: "Deposit $CTHU or SOL — live on-chain confirmation" },
-                  { n: "06", cmd: "Browse & buy", sub: "Physical goods → PGP-encrypted shipping. Digital → instant email delivery." },
+                  { n: "06", cmd: "Browse & buy", sub: "Physical → PGP-encrypted shipping. Digital → instant email delivery." },
                 ].map((step) => (
                   <div key={step.n} style={{ marginBottom: 16 }}>
                     <div style={{ color: G }}><span style={{ color: GDIM }}>[{step.n}]</span> {step.cmd}</div>
@@ -192,11 +167,11 @@ export default function Roadmap() {
             <motion.div variants={fadeUp} style={{ ...CARD, borderColor: `${G}55` }}>
               <div style={{ fontSize: 12, color: GDIM, marginBottom: 12, letterSpacing: "0.15em" }}>⚠ SECURITY REMINDERS</div>
               {[
-                "Only access via Tor Browser — never paste the .onion link into Chrome or Firefox",
+                "Only access via Tor Browser — never paste .onion into Chrome or Firefox",
                 "Use a strong unique passphrase — there is no password reset",
-                "For physical goods: always use PGP-encrypted messages for your address",
+                "For physical goods: always PGP-encrypt your shipping address",
                 "Make a small test purchase before large orders",
-                "Generate a fresh Phantom wallet for marketplace transactions",
+                "Use a fresh Phantom wallet for marketplace transactions",
               ].map((tip, i) => (
                 <div key={i} style={{ color: GDIM, fontSize: 12, marginBottom: 6, paddingLeft: 12, borderLeft: `2px solid #00ff4133` }}>{tip}</div>
               ))}
@@ -204,7 +179,55 @@ export default function Roadmap() {
           </motion.div>
         </section>
 
-        {/* SECTION 2: FEATURES */}
+        {/* SECTION 2: VIDEO TUTORIAL */}
+        <section id="tutorial" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto" }}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.div variants={fadeUp}><SectionTitle>VIDEO TUTORIAL</SectionTitle></motion.div>
+            <motion.div variants={fadeUp}>
+              <div style={{ color: GDIM, fontSize: 13, marginBottom: 24 }}>
+                Watch the full walkthrough — registration, browsing listings, making a payment, and tracking your order.
+              </div>
+              <div style={{
+                border: `1px solid #00ff4144`,
+                borderRadius: 8,
+                overflow: "hidden",
+                boxShadow: `0 0 40px #00ff4122, 0 0 80px #00ff410a`,
+                background: "#000",
+              }}>
+                {/* Terminal title bar */}
+                <div style={{
+                  background: "rgba(0,255,65,0.07)",
+                  padding: "8px 16px",
+                  borderBottom: `1px solid #00ff4133`,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}>
+                  <div style={{ display: "flex", gap: 6 }}>
+                    <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff5f56" }} />
+                    <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#ffbd2e" }} />
+                    <div style={{ width: 10, height: 10, borderRadius: "50%", background: G }} />
+                  </div>
+                  <span style={{ marginLeft: 12, fontFamily: "'Share Tech Mono', monospace", fontSize: 11, color: GDIM }}>
+                    silkroad2-tutorial.mp4 — site walkthrough
+                  </span>
+                </div>
+                <video
+                  controls
+                  style={{ width: "100%", display: "block", maxHeight: 520, background: "#000" }}
+                >
+                  <source src="/video/hero.mp4" type="video/mp4" />
+                  Your browser does not support video playback.
+                </video>
+              </div>
+              <div style={{ marginTop: 16, color: GDIM, fontSize: 11, textAlign: "center", letterSpacing: "0.1em" }}>
+                ▲ Watch inside Tor Browser for full anonymity
+              </div>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* SECTION 3: FEATURES */}
         <section id="features" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto" }}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.div variants={fadeUp}><SectionTitle>MARKETPLACE FEATURES</SectionTitle></motion.div>
@@ -229,7 +252,7 @@ export default function Roadmap() {
           </motion.div>
         </section>
 
-        {/* SECTION 3: PAYMENT */}
+        {/* SECTION 4: PAYMENT */}
         <section id="payment" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto" }}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.div variants={fadeUp}><SectionTitle>PAYMENT SYSTEM</SectionTitle></motion.div>
@@ -267,13 +290,13 @@ export default function Roadmap() {
           </motion.div>
         </section>
 
-        {/* SECTION 4: TOKEN */}
+        {/* SECTION 5: TOKEN */}
         <section id="token" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto" }}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.div variants={fadeUp}><SectionTitle>$CTHU TOKEN</SectionTitle></motion.div>
             <motion.div variants={fadeUp} style={{ ...CARD, borderColor: `${G}66`, boxShadow: `0 0 30px #00ff4122`, marginBottom: 24 }}>
               <div style={{ textAlign: "center", marginBottom: 24 }}>
-                <div style={{ fontSize: 48, marginBottom: 8 }}>🐙</div>
+                <img src="/cthulhu-favicon.jpg" alt="CTHU" style={{ width: 80, height: 80, borderRadius: "50%", border: `2px solid #00ff4166`, boxShadow: `0 0 20px #00ff4144`, objectFit: "cover", marginBottom: 12 }} />
                 <div style={{ fontSize: 22, color: G, letterSpacing: "0.1em", textShadow: `0 0 10px ${G}` }}>CTHULHU TOKEN</div>
                 <div style={{ color: GDIM, fontSize: 12, marginTop: 4 }}>Solana Mainnet • Native Marketplace Currency</div>
               </div>
@@ -297,10 +320,9 @@ export default function Roadmap() {
             </motion.div>
             <motion.div variants={fadeUp} style={{ textAlign: "center" }}>
               <a href={`https://dexscreener.com/solana/${CTHU_CA}`} target="_blank" rel="noreferrer" style={{
-                display: "inline-block", padding: "12px 32px",
-                border: `1px solid ${G}`, color: G, background: "transparent",
-                fontFamily: "'Share Tech Mono', monospace", fontSize: 13, letterSpacing: "0.1em",
-                textDecoration: "none", borderRadius: 3, boxShadow: `0 0 15px #00ff4133`,
+                display: "inline-block", padding: "12px 32px", border: `1px solid ${G}`, color: G,
+                background: "transparent", fontFamily: "'Share Tech Mono', monospace", fontSize: 13,
+                letterSpacing: "0.1em", textDecoration: "none", borderRadius: 3, boxShadow: `0 0 15px #00ff4133`,
               }}>
                 VIEW $CTHU CHART →
               </a>
@@ -308,13 +330,13 @@ export default function Roadmap() {
           </motion.div>
         </section>
 
-        {/* SECTION 5: ROADMAP */}
+        {/* SECTION 6: ROADMAP */}
         <section id="roadmap" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto" }}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.div variants={fadeUp}><SectionTitle>DEVELOPMENT ROADMAP</SectionTitle></motion.div>
             <motion.div variants={stagger} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {[
-                { phase: "PHASE 0", title: "Foundation", status: "COMPLETE", items: ["Tor hidden service v3 setup", "Flat-file db.json database (zero external deps)", "Dark web aesthetic — black/#00ff41/Share Tech Mono", "$CTHU + SOL payment integration", "Ed25519 escrow with auto-sweep"] },
+                { phase: "PHASE 0", title: "Foundation", status: "COMPLETE", items: ["Tor hidden service v3 setup", "Flat-file database (zero external deps)", "Dark web aesthetic — black/#00ff41/Share Tech Mono", "$CTHU + SOL payment integration", "Ed25519 escrow with auto-sweep"] },
                 { phase: "PHASE 1", title: "Live Marketplace", status: "LIVE ✓", items: ["Vendor storefronts with image uploads", "Buyer portal with order history", "Live on-chain payment verification", "Encrypted buyer-vendor messaging", "Digital delivery via email"] },
                 { phase: "PHASE 2", title: "Hardening", status: "IN PROGRESS", items: ["Multi-vendor invite system", "PGP key upload for vendors", "Dispute resolution system", "2FA via TOTP authenticator", "Vendor reputation & review system"] },
                 { phase: "PHASE 3", title: "Scale", status: "PLANNED", items: ["Multiple hidden service mirrors", "Automated canary page", "Advanced escrow with time-locks", "Mobile-optimized Tor Browser UI", "$CTHU staking for vendor verification"] },
@@ -340,11 +362,11 @@ export default function Roadmap() {
           </motion.div>
         </section>
 
-        {/* SECTION 6: CLOSING */}
+        {/* SECTION 7: CLOSING */}
         <section id="closing" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.div variants={fadeUp}>
-              <div style={{ fontSize: 48, marginBottom: 16 }}>🐙</div>
+              <img src="/cthulhu-favicon.jpg" alt="Cthulhu" style={{ width: 80, height: 80, borderRadius: "50%", border: `2px solid #00ff4166`, boxShadow: `0 0 30px #00ff4144`, objectFit: "cover", marginBottom: 20 }} />
               <h2 className="animate-flicker" style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: "clamp(20px, 5vw, 36px)", color: G, textShadow: `0 0 15px ${G}`, marginBottom: 16 }}>
                 THE DARK WEB HAS ITS MARKETPLACE BACK
               </h2>
@@ -359,7 +381,9 @@ export default function Roadmap() {
                 <div style={{ fontSize: 11, color: GDIM, marginBottom: 8, letterSpacing: "0.2em" }}>ACCESS NOW</div>
                 <div style={{ fontSize: "clamp(10px, 2.5vw, 14px)", color: G, wordBreak: "break-all", textShadow: `0 0 8px #00ff4188` }}>{ONION}</div>
               </div>
-              <div style={{ color: GDIM, fontSize: 11 }}>Requires Tor Browser — <a href="https://www.torproject.org/download/" target="_blank" rel="noreferrer" style={{ color: G }}>download here</a></div>
+              <div style={{ color: GDIM, fontSize: 11 }}>
+                Requires Tor Browser — <a href="https://www.torproject.org/download/" target="_blank" rel="noreferrer" style={{ color: G }}>download here</a>
+              </div>
             </motion.div>
             <motion.div variants={fadeUp}>
               <div style={{ color: GDIM, fontSize: 11, letterSpacing: "0.2em" }}>■ SESSION TERMINATED — CONNECTION CLOSED ■</div>
