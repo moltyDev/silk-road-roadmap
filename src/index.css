@@ -1,100 +1,88 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: 'Inter', sans-serif;
-  --font-mono: 'Fira Code', monospace;
-
-  /* Color Palette based on prompt */
-  --color-background: 0 0% 4%; /* #0a0a0a */
-  --color-foreground: 0 0% 100%; /* #ffffff */
-  
-  --color-primary: 120 100% 20%; /* Dark Green #006400 */
+  --font-sans: 'Share Tech Mono', monospace;
+  --font-mono: 'Share Tech Mono', monospace;
+  --color-background: 0 0% 0%;
+  --color-foreground: 120 100% 50%;
+  --color-primary: 120 100% 13%;
   --color-primary-foreground: 0 0% 100%;
-  
-  --color-accent: 150 100% 40%; /* Bright Accent Green #00CC66 */
-  --color-accent-foreground: 0 0% 4%;
-  
-  --color-muted: 120 20% 10%;
-  --color-muted-foreground: 120 10% 60%;
-  
+  --color-accent: 120 100% 50%;
+  --color-accent-foreground: 0 0% 0%;
+  --color-muted: 120 20% 8%;
+  --color-muted-foreground: 120 40% 45%;
   --color-border: 120 100% 20%;
-  --color-card: 0 0% 6%;
-  --color-card-border: 120 50% 15%;
+  --color-card: 0 0% 3%;
+  --color-card-border: 120 60% 18%;
 }
 
 :root {
-  --background: 0 0% 4%;
-  --foreground: 0 0% 100%;
-  --primary: 120 100% 20%;
-  --accent: 150 100% 40%;
+  --background: 0 0% 0%;
+  --foreground: 120 100% 50%;
+  --primary: 120 100% 13%;
+  --accent: 120 100% 50%;
 }
 
 @layer base {
   body {
-    @apply bg-background text-foreground font-sans antialiased selection:bg-accent selection:text-background;
-    /* Subtle background grid base */
-    background-image: linear-gradient(rgba(0, 204, 102, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 204, 102, 0.03) 1px, transparent 1px);
-    background-size: 30px 30px;
+    background-color: #000000;
+    color: #00ff41;
+    font-family: 'Share Tech Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      linear-gradient(rgba(0, 255, 65, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 65, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
-
   h1, h2, h3, h4, h5, h6 {
-    @apply font-mono font-bold tracking-tight text-accent;
+    font-family: 'Share Tech Mono', monospace;
+    color: #00ff41;
+    letter-spacing: 0.05em;
   }
+  a { color: #00ff41; text-decoration: none; }
+  ::selection { background: #00ff41; color: #000000; }
 }
 
 @layer utilities {
-  .scanlines {
-    position: relative;
-  }
+  .scanlines { position: relative; }
   .scanlines::after {
     content: " ";
     display: block;
     position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.15));
     background-size: 100% 4px;
     pointer-events: none;
     z-index: 50;
   }
-
   .text-glow {
-    text-shadow: 0 0 10px rgba(0, 204, 102, 0.5), 0 0 20px rgba(0, 204, 102, 0.3);
+    text-shadow: 0 0 8px rgba(0,255,65,0.9), 0 0 20px rgba(0,255,65,0.5), 0 0 40px rgba(0,255,65,0.3);
   }
-
+  .text-glow-sm { text-shadow: 0 0 6px rgba(0,255,65,0.7); }
   .box-glow {
-    box-shadow: 0 0 15px rgba(0, 100, 0, 0.4), inset 0 0 20px rgba(0, 100, 0, 0.1);
+    box-shadow: 0 0 12px rgba(0,255,65,0.3), inset 0 0 20px rgba(0,255,65,0.05);
   }
-
   .box-glow-accent {
-    box-shadow: 0 0 20px rgba(0, 204, 102, 0.4), inset 0 0 15px rgba(0, 204, 102, 0.1);
+    box-shadow: 0 0 20px rgba(0,255,65,0.5), 0 0 40px rgba(0,255,65,0.2), inset 0 0 15px rgba(0,255,65,0.08);
   }
-
-  .animate-blink {
-    animation: blink 1s step-end infinite;
-  }
+  .animate-blink { animation: blink 1s step-end infinite; }
+  .animate-flicker { animation: flicker 3s infinite; }
 }
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96% { opacity: 0.6; }
+  97% { opacity: 1; }
+  98% { opacity: 0.4; }
+  99% { opacity: 1; }
+}
 
-/* Custom scrollbar for terminal feel */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: hsl(var(--color-background));
-  border-left: 1px solid hsl(var(--color-border));
-}
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--color-primary));
-}
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--color-accent));
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #000; border-left: 1px solid #00ff4133; }
+::-webkit-scrollbar-thumb { background: #00ff41; }
+::-webkit-scrollbar-thumb:hover { background: #00ff41cc; }

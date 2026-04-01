@@ -1,592 +1,474 @@
 import { motion } from "framer-motion";
-import { 
-  Download, Palette, Shield, Box, History, RefreshCw, Leaf, 
-  Terminal, Lock, EyeOff, Coins, ArrowRight, ShieldCheck, 
-  Package, Unlock, CheckCircle2, AlertTriangle
-} from "lucide-react";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
 import { Sidebar } from "@/components/Sidebar";
 import { TerminalWindow } from "@/components/TerminalWindow";
-import { Disclaimer } from "@/components/Disclaimer";
+
+const ONION = "http://3nijlkonhuldrobrbqbxkzcninebbyaik6n36qp7bvqr5y7vyru3meid.onion/";
+const CTHU_CA = "6cXMtoRynUPBsqUkVCfStRgUL9mPQKmQ8wurBagSpump";
 
 const SECTIONS = [
-  { id: "cover", label: "Initialization" },
-  { id: "vision", label: "Vision & Positioning" },
-  { id: "history", label: "Historical Context" },
-  { id: "branding", label: "Branding Identity" },
-  { id: "access", label: "Access Roadmap" },
-  { id: "payment", label: "Payment System" },
-  { id: "development", label: "Dev Roadmap" },
-  { id: "guardrails", label: "Ethical Guardrails" },
-  { id: "closing", label: "System Shutdown" },
+  { id: "cover",      label: "Boot Screen" },
+  { id: "access",     label: "How To Access" },
+  { id: "features",   label: "Features" },
+  { id: "payment",    label: "Payment System" },
+  { id: "token",      label: "$CTHU Token" },
+  { id: "roadmap",    label: "Dev Roadmap" },
+  { id: "closing",    label: "Disconnect" },
 ];
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
+const G = "#00ff41";
+const GDIM = "#00ff4177";
+const CARD = { background: "#030a03", border: `1px solid ${G}33`, borderRadius: 6, padding: "24px" };
+const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } } };
+const stagger = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.12 } } };
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
-};
+function GlowText({ children, size = 28, dim = false }: { children: React.ReactNode; size?: number; dim?: boolean }) {
+  return (
+    <span style={{
+      fontFamily: "'Share Tech Mono', monospace",
+      color: dim ? GDIM : G,
+      fontSize: size,
+      textShadow: dim ? "none" : `0 0 8px ${G}cc, 0 0 20px ${G}66`,
+    }}>
+      {children}
+    </span>
+  );
+}
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ marginBottom: 32 }}>
+      <div style={{ color: GDIM, fontSize: 11, fontFamily: "'Share Tech Mono', monospace", marginBottom: 6, letterSpacing: "0.2em" }}>
+        {"// "}SILK ROAD 2.0
+      </div>
+      <h2 style={{ fontFamily: "'Share Tech Mono', monospace", color: G, fontSize: 26, margin: 0, textShadow: `0 0 12px ${G}88` }}>
+        {children}
+      </h2>
+      <div style={{ marginTop: 10, height: 1, background: `linear-gradient(to right, ${G}, transparent)`, width: "60%" }} />
+    </div>
+  );
+}
 
 export default function Roadmap() {
   const activeId = useScrollSpy(SECTIONS.map(s => s.id), 300);
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex">
+    <div style={{ background: "#000", minHeight: "100vh", fontFamily: "'Share Tech Mono', monospace", color: G }}>
       <Sidebar sections={SECTIONS} activeId={activeId} />
-      
-      <main className="flex-1 lg:ml-64 relative">
-        
+
+      <main style={{ marginLeft: 0, paddingLeft: 0 }} className="lg:ml-[220px]">
+
         {/* SECTION 0: COVER */}
-        <section id="cover" className="min-h-screen flex flex-col justify-center items-center p-6 relative overflow-hidden">
-          <div className="absolute inset-0 z-0 opacity-30">
-            <img 
-              src={`${import.meta.env.BASE_URL}images/dark-grid-bg.png`} 
-              alt="Grid Background" 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background"></div>
-          </div>
-          
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
-            className="z-10 w-full max-w-4xl text-center flex flex-col items-center"
-          >
-            <motion.img 
-              variants={fadeInUp}
-              src={`${import.meta.env.BASE_URL}images/camel-cthulhu-logo.png`}
-              alt="Silk Road 2.0 Camel Cthulhu Logo"
-              className="w-64 md:w-96 mb-8 drop-shadow-[0_0_30px_rgba(0,204,102,0.6)]"
-            />
-            
-            <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-bold text-accent text-glow mb-4">
-              Silk Road <span className="text-white">2.0</span>
-            </motion.h1>
-            
-            <motion.h2 variants={fadeInUp} className="text-xl md:text-3xl text-gray-300 mb-6 border-b border-primary/50 pb-6 inline-block">
-              This Hidden Site Has Risen Again – <span className="text-accent font-bold">Legally</span>
-              <span className="inline-block w-3 h-8 bg-accent ml-2 align-middle animate-blink"></span>
-            </motion.h2>
-            
-            <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-4 text-sm font-mono text-muted-foreground mb-12">
-              <span className="px-3 py-1 bg-primary/20 border border-primary/50 rounded text-accent">Privacy</span>
-              <span className="px-3 py-1 bg-primary/20 border border-primary/50 rounded text-accent">Anonymity</span>
-              <span className="px-3 py-1 bg-primary/20 border border-accent/50 rounded text-accent box-glow-accent">$CTHULHU Payments</span>
-            </motion.div>
-            
-            <motion.p variants={fadeInUp} className="text-gray-500 font-mono text-sm max-w-lg">
-              v1.0 — March 2026
-            </motion.p>
-          </motion.div>
-        </section>
+        <section id="cover" style={{
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          padding: "60px 24px",
+          position: "relative",
+          overflow: "hidden",
+        }}>
+          <div style={{
+            position: "absolute", inset: 0,
+            backgroundImage: `radial-gradient(ellipse at center, ${G}0d 0%, transparent 70%)`,
+            pointerEvents: "none",
+          }} />
 
-        {/* SECTION 1: VISION */}
-        <section id="vision" className="min-h-screen py-24 px-6 md:px-12 flex flex-col justify-center border-t border-primary/20">
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}
-            className="max-w-6xl mx-auto w-full"
-          >
-            <motion.div variants={fadeInUp} className="mb-16">
-              <h2 className="text-4xl md:text-5xl mb-6 flex items-center gap-4">
-                <Terminal className="w-10 h-10 text-accent" />
-                Vision & Positioning
-              </h2>
-              <blockquote className="border-l-4 border-accent pl-6 py-2 text-2xl text-gray-300 font-mono bg-primary/10 rounded-r-lg">
-                "This Hidden Site Has Risen Again – For Legitimate Trade"
-              </blockquote>
-              <p className="mt-8 text-lg text-gray-400 max-w-3xl leading-relaxed">
-                A Tor-only .onion marketplace that resurrects the iconic, nostalgic look and feel of the classic darknet markets of 2013–2014, but enforcing a strict, <strong className="text-accent">100% legal product policy</strong>.
-              </p>
+          <motion.div initial="hidden" animate="visible" variants={stagger} style={{ zIndex: 1, maxWidth: 700 }}>
+            <motion.div variants={fadeUp} style={{ marginBottom: 16 }}>
+              <span style={{ fontSize: 11, letterSpacing: "0.3em", color: GDIM }}>
+                TOR HIDDEN SERVICE v3 — SOLANA MAINNET
+              </span>
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                { icon: Download, title: "Digital Downloads", desc: "E-books, privacy software licenses, open-source auditing tools." },
-                { icon: Palette, title: "Art & Collectibles", desc: "Digital prints, customizable designs, independent artist wares." },
-                { icon: Shield, title: "Privacy Services", desc: "VPN subscriptions, encrypted email aliases, secure hosting." },
-                { icon: Box, title: "Physical Goods", desc: "Merch, books, artisanal items shipped normally with proper customs declarations." }
-              ].map((item, idx) => (
-                <div key={idx} className="p-6 bg-card border border-primary/30 rounded-xl hover:border-accent hover:box-glow transition-all group">
-                  <item.icon className="w-10 h-10 text-primary mb-4 group-hover:text-accent transition-colors" />
-                  <h3 className="text-xl text-white mb-2">{item.title}</h3>
-                  <p className="text-gray-400">{item.desc}</p>
-                </div>
-              ))}
+            <motion.div variants={fadeUp}>
+              <h1 className="animate-flicker" style={{
+                fontFamily: "'Share Tech Mono', monospace",
+                fontSize: "clamp(36px, 8vw, 72px)",
+                color: G,
+                textShadow: `0 0 20px ${G}, 0 0 40px ${G}88, 0 0 80px ${G}44`,
+                margin: "0 0 8px",
+                lineHeight: 1.1,
+              }}>
+                SILK ROAD 2.0
+              </h1>
             </motion.div>
 
-            <Disclaimer />
-          </motion.div>
-        </section>
-
-        {/* SECTION 2: HISTORY */}
-        <section id="history" className="min-h-screen py-24 px-6 md:px-12 bg-primary/5 flex flex-col justify-center border-t border-primary/20">
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}
-            className="max-w-6xl mx-auto w-full"
-          >
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl mb-16">
-              Historical Inspiration
-            </motion.h2>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
-              {/* Connecting line for desktop */}
-              <div className="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-primary/30 -translate-y-1/2 z-0"></div>
-
-              <motion.div variants={fadeInUp} className="relative z-10 bg-black border border-primary/30 p-8 rounded-xl opacity-60 hover:opacity-100 transition-opacity">
-                <History className="w-12 h-12 text-primary mb-6" />
-                <h3 className="text-2xl text-white mb-2">Original Era</h3>
-                <p className="text-accent font-mono text-sm mb-4">2011 – 2013</p>
-                <ul className="text-gray-400 space-y-2 text-sm">
-                  <li>• Tor Hidden Service</li>
-                  <li>• Bitcoin exclusivity</li>
-                  <li>• Escrow system</li>
-                  <li>• Vendor rating mechanics</li>
-                </ul>
-              </motion.div>
-
-              <motion.div variants={fadeInUp} className="relative z-10 bg-black border border-primary/50 p-8 rounded-xl box-glow opacity-80 hover:opacity-100 transition-opacity">
-                <RefreshCw className="w-12 h-12 text-accent mb-6" />
-                <h3 className="text-2xl text-white mb-2">Silk Road 2.0</h3>
-                <p className="text-accent font-mono text-sm mb-4">2013 – 2014</p>
-                <ul className="text-gray-400 space-y-2 text-sm">
-                  <li>• "Risen again" branding</li>
-                  <li>• Green camel logo</li>
-                  <li>• Improved interface</li>
-                  <li>• Multi-admin claims</li>
-                </ul>
-              </motion.div>
-
-              <motion.div variants={fadeInUp} className="relative z-10 bg-black border-2 border-accent p-8 rounded-xl box-glow-accent">
-                <Leaf className="w-12 h-12 text-accent mb-6 drop-shadow-[0_0_10px_rgba(0,204,102,0.8)]" />
-                <h3 className="text-2xl text-white mb-2">The Revival</h3>
-                <p className="text-accent font-mono text-sm mb-4">2026</p>
-                <ul className="text-gray-300 space-y-2 text-sm font-medium">
-                  <li>• Legal products ONLY</li>
-                  <li>• $CTHULHU meme token integration</li>
-                  <li>• Solana/Monero/BTC support</li>
-                  <li>• Modern backend, retro frontend</li>
-                </ul>
-              </motion.div>
-            </div>
-
-            <motion.div variants={fadeInUp} className="mt-16 p-6 border border-accent bg-accent/10 rounded-xl text-center">
-              <p className="text-lg font-mono text-accent">
-                <Lock className="inline-block w-5 h-5 mr-2 -mt-1" />
-                This concept copies ONLY the user experience and technical architecture – never the product categories or illegal intent.
-              </p>
-            </motion.div>
-            
-            <Disclaimer />
-          </motion.div>
-        </section>
-
-        {/* SECTION 3: BRANDING */}
-        <section id="branding" className="min-h-screen py-24 px-6 md:px-12 flex flex-col justify-center border-t border-primary/20 relative overflow-hidden">
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}
-            className="max-w-6xl mx-auto w-full relative z-10"
-          >
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl mb-16">
-              Branding & Visual Identity
-            </motion.h2>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-              <motion.div variants={fadeInUp} className="space-y-12">
-                <div>
-                  <h3 className="text-xl font-mono text-muted-foreground mb-4">Color Palette</h3>
-                  <div className="flex rounded-lg overflow-hidden h-24 border border-primary/30 w-full">
-                    <div className="flex-1 bg-[#0a0a0a] flex items-end p-2 text-xs font-mono text-gray-500">#0a0a0a</div>
-                    <div className="flex-1 bg-[#006400] flex items-end p-2 text-xs font-mono text-white/70">#006400</div>
-                    <div className="flex-1 bg-[#00CC66] flex items-end p-2 text-xs font-mono text-black font-bold">#00CC66</div>
-                    <div className="flex-1 bg-[#FFFFFF] flex items-end p-2 text-xs font-mono text-black">#FFFFFF</div>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-mono text-muted-foreground mb-4">Typography</h3>
-                  <div className="space-y-4 border border-primary/30 p-6 rounded-xl bg-card">
-                    <div>
-                      <span className="text-xs text-accent">Header Font (Fira Code)</span>
-                      <h4 className="text-3xl mt-1">Wake the Ancient Markets</h4>
-                    </div>
-                    <div className="pt-4 border-t border-primary/20">
-                      <span className="text-xs text-accent">Body Font (Inter)</span>
-                      <p className="text-lg text-gray-400 mt-1">Privacy without prohibition. Trade freely and legally in the deep web.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-mono text-muted-foreground mb-4">Slogans</h3>
-                  <div className="space-y-3">
-                    {["Wake the Ancient Markets – Legally", "Privacy Without Prohibition", "$CTHULHU Powered Anonymity"].map((s, i) => (
-                      <div key={i} className="p-4 bg-primary/10 border-l-2 border-accent font-mono text-white">
-                        &gt; {s}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div variants={fadeInUp} className="flex flex-col items-center justify-center">
-                <div className="relative w-full max-w-md aspect-square rounded-2xl border-2 border-accent p-2 box-glow-accent overflow-hidden group">
-                  <div className="absolute inset-0 bg-accent/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                    <span className="font-mono text-accent font-bold text-xl drop-shadow-md">GUARDIAN OF PRIVACY</span>
-                  </div>
-                  <img 
-                    src={`${import.meta.env.BASE_URL}images/cthulhu-mascot.png`}
-                    alt="Official Mascot - Green Cthulhu Plush"
-                    className="w-full h-full object-cover rounded-xl"
-                  />
-                  {/* Decorative corners */}
-                  <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-accent"></div>
-                  <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-accent"></div>
-                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-accent"></div>
-                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-accent"></div>
-                </div>
-                <p className="mt-6 font-mono text-accent text-center tracking-widest">
-                  OFFICIAL MASCOT <br/> <span className="text-sm text-gray-400">The Friendly Guardian of the Deep Web</span>
-                </p>
-              </motion.div>
-            </div>
-            
-            <Disclaimer />
-          </motion.div>
-        </section>
-
-        {/* SECTION 4: ACCESS */}
-        <section id="access" className="min-h-screen py-24 px-6 md:px-12 flex flex-col justify-center border-t border-primary/20">
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}
-            className="max-w-4xl mx-auto w-full"
-          >
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl mb-12 flex items-center gap-4">
-              <EyeOff className="w-10 h-10 text-accent" />
-              How To Access
-            </motion.h2>
-
-            <div className="space-y-8 relative">
-              {/* Vertical connecting line */}
-              <div className="absolute left-6 top-10 bottom-10 w-0.5 bg-primary/30 z-0"></div>
-
-              {[
-                {
-                  step: 1,
-                  title: "Download Tor Browser",
-                  content: (
-                    <TerminalWindow title="user@localhost:~">
-                      $ wget https://www.torproject.org/dist/torbrowser/latest/tor-browser-linux64.tar.xz<br/>
-                      $ tar -xvf tor-browser-linux64.tar.xz<br/>
-                      <span className="text-green-400"># Install & connect (green onion icon appears)</span>
-                    </TerminalWindow>
-                  )
-                },
-                {
-                  step: 2,
-                  title: "Enter the .onion address",
-                  content: (
-                    <div className="p-4 bg-black border border-primary/50 rounded flex items-center gap-4">
-                      <Lock className="text-accent" />
-                      <span className="font-mono text-white break-all">http://silkroad2cthulhu-v3.onion</span>
-                    </div>
-                  )
-                },
-                {
-                  step: 3,
-                  title: "Register Anonymously",
-                  content: <p className="text-gray-400 font-mono text-sm">Username + strong passphrase. No email or phone ever asked. Enable 2FA with authenticator app.</p>
-                },
-                {
-                  step: 4,
-                  title: "Fund Wallet",
-                  content: <p className="text-gray-400 font-mono text-sm">Deposit $CTHULHU (Solana via Phantom), BTC, ETH, USDT, Monero. Site generates unique deposit QR/address per transaction.</p>
-                },
-                {
-                  step: 5,
-                  title: "Browse & Buy Legally",
-                  content: (
-                    <div className="flex flex-wrap items-center gap-2 font-mono text-sm text-accent">
-                      <span className="bg-primary/20 px-2 py-1 rounded">Categories</span> <ArrowRight className="w-4 h-4 text-gray-500" />
-                      <span className="bg-primary/20 px-2 py-1 rounded">Cart</span> <ArrowRight className="w-4 h-4 text-gray-500" />
-                      <span className="bg-primary/20 px-2 py-1 rounded">Escrow</span> <ArrowRight className="w-4 h-4 text-gray-500" />
-                      <span className="bg-primary/20 px-2 py-1 rounded text-white">Release Funds</span>
-                    </div>
-                  )
-                }
-              ].map((item) => (
-                <motion.div key={item.step} variants={fadeInUp} className="relative z-10 flex gap-6">
-                  <div className="w-12 h-12 rounded-full bg-background border-2 border-accent flex items-center justify-center font-bold text-accent shrink-0 box-glow-accent">
-                    {item.step}
-                  </div>
-                  <div className="flex-1 pt-2">
-                    <h3 className="text-xl text-white mb-4">{item.title}</h3>
-                    {item.content}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div variants={fadeInUp} className="mt-16 p-6 border-l-4 border-red-500 bg-red-950/20 rounded-r-xl">
-              <h4 className="text-red-400 font-bold mb-4 flex items-center gap-2">
-                <AlertTriangle className="w-5 h-5" />
-                Security Reminders
-              </h4>
-              <ul className="text-red-200/70 font-mono text-sm space-y-2 list-disc pl-5">
-                <li>Use Tor only – never clear web browsers.</li>
-                <li>Generate fresh wallet addresses per transaction.</li>
-                <li>Make a small test purchase first.</li>
-                <li>Never share real personal info. Use PGP for physical drops.</li>
-              </ul>
+            <motion.div variants={fadeUp}>
+              <div style={{ fontSize: 14, color: GDIM, marginBottom: 36, letterSpacing: "0.12em" }}>
+                UNBANKED. UNTRACEABLE. UNSTOPPABLE.
+              </div>
             </motion.div>
 
-            <Disclaimer />
-          </motion.div>
-        </section>
-
-        {/* SECTION 5: PAYMENT */}
-        <section id="payment" className="min-h-screen py-24 px-6 md:px-12 bg-primary/5 flex flex-col justify-center border-t border-primary/20">
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}
-            className="max-w-6xl mx-auto w-full"
-          >
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl mb-16 flex items-center gap-4">
-              <Coins className="w-10 h-10 text-accent" />
-              Payment & Escrow
-            </motion.h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-              {/* Featured Token */}
-              <motion.div variants={fadeInUp} className="lg:col-span-2 bg-gradient-to-br from-primary/40 to-black border-2 border-accent rounded-xl p-8 box-glow-accent relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full blur-3xl"></div>
-                <h3 className="text-3xl font-bold text-accent mb-2">$CTHULHU</h3>
-                <p className="font-mono text-sm text-green-300 mb-4">Solana Meme Token • Native Currency</p>
-                <p className="text-gray-300 mb-6">Fastest, cheapest settlement. Direct theme synergy with the marketplace mascot. Exclusive discounts for buyers using $CTHULHU.</p>
-                <div className="text-xs font-mono text-muted-foreground p-3 bg-black/50 border border-primary/30 rounded break-all">
-                  CA: 6cXMtoRynUPBsqUkVCfStRgUL9mPQKmQ8wurBagSpump
-                </div>
-              </motion.div>
-
-              <motion.div variants={fadeInUp} className="bg-card border border-primary/30 rounded-xl p-6 flex flex-col justify-center items-center text-center hover:border-primary transition-colors">
-                <div className="w-12 h-12 rounded-full bg-orange-500/20 text-orange-500 flex items-center justify-center font-bold text-xl mb-4">₿</div>
-                <h3 className="text-lg text-white mb-2">Bitcoin</h3>
-                <p className="text-sm text-gray-500">The classic standard</p>
-              </motion.div>
-
-              <motion.div variants={fadeInUp} className="bg-card border border-primary/30 rounded-xl p-6 flex flex-col justify-center items-center text-center hover:border-primary transition-colors">
-                <div className="w-12 h-12 rounded-full bg-orange-500/20 text-orange-500 flex items-center justify-center font-bold text-xl mb-4">M</div>
-                <h3 className="text-lg text-white mb-2">Monero</h3>
-                <p className="text-sm text-gray-500">Maximum privacy</p>
-              </motion.div>
-            </div>
-
-            <motion.div variants={fadeInUp} className="p-8 border border-primary/50 bg-black rounded-xl">
-              <h3 className="text-xl font-mono text-accent mb-8 text-center">Multi-Sig Escrow Flow</h3>
-              
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-2">
-                <div className="flex flex-col items-center text-center w-32">
-                  <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary flex items-center justify-center mb-3">
-                    <Coins className="text-white" />
-                  </div>
-                  <span className="text-sm font-mono">Buyer Sends</span>
-                </div>
-                
-                <ArrowRight className="w-6 h-6 text-accent hidden md:block" />
-                <ArrowRight className="w-6 h-6 text-accent rotate-90 md:hidden" />
-                
-                <div className="flex flex-col items-center text-center w-32">
-                  <div className="w-16 h-16 rounded-full bg-accent/20 border border-accent flex items-center justify-center mb-3 box-glow-accent">
-                    <ShieldCheck className="text-accent" />
-                  </div>
-                  <span className="text-sm font-mono text-accent">Smart Escrow</span>
-                </div>
-                
-                <ArrowRight className="w-6 h-6 text-accent hidden md:block" />
-                <ArrowRight className="w-6 h-6 text-accent rotate-90 md:hidden" />
-
-                <div className="flex flex-col items-center text-center w-32">
-                  <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary flex items-center justify-center mb-3">
-                    <Package className="text-white" />
-                  </div>
-                  <span className="text-sm font-mono">Seller Ships</span>
-                </div>
-
-                <ArrowRight className="w-6 h-6 text-accent hidden md:block" />
-                <ArrowRight className="w-6 h-6 text-accent rotate-90 md:hidden" />
-
-                <div className="flex flex-col items-center text-center w-32">
-                  <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary flex items-center justify-center mb-3 text-green-400">
-                    <Unlock />
-                  </div>
-                  <span className="text-sm font-mono text-green-400">Funds Released</span>
+            <motion.div variants={fadeUp}>
+              <div style={{ ...CARD, marginBottom: 32, padding: "16px 24px" }}>
+                <div style={{ fontSize: 11, color: GDIM, marginBottom: 8, letterSpacing: "0.15em" }}>ONION ADDRESS</div>
+                <div style={{ fontSize: "clamp(9px, 2vw, 13px)", color: G, wordBreak: "break-all", letterSpacing: "0.05em" }}>
+                  {ONION}
                 </div>
               </div>
             </motion.div>
 
-            <Disclaimer />
-          </motion.div>
-        </section>
-
-        {/* SECTION 6: ROADMAP */}
-        <section id="development" className="min-h-screen py-24 px-6 md:px-12 flex flex-col justify-center border-t border-primary/20">
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}
-            className="max-w-4xl mx-auto w-full"
-          >
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl mb-16">
-              Development Roadmap
-            </motion.h2>
-
-            <div className="relative border-l-2 border-primary/30 ml-4 md:ml-6 space-y-12">
-              
-              {/* Phase 0 - ACTIVE */}
-              <motion.div variants={fadeInUp} className="relative pl-8 md:pl-12">
-                <div className="absolute -left-[11px] top-1 w-5 h-5 rounded-full bg-accent box-glow-accent animate-pulse"></div>
-                <div className="absolute -left-[15px] top-0 w-7 h-7 rounded-full border border-accent animate-ping"></div>
-                
-                <div className="bg-primary/10 border border-accent/50 p-6 rounded-xl relative overflow-hidden">
-                  <div className="absolute top-0 right-0 bg-accent text-black font-bold font-mono text-xs px-3 py-1 rounded-bl-lg">CURRENT</div>
-                  <h3 className="text-2xl text-accent mb-2">Phase 0: Research & Planning</h3>
-                  <p className="text-muted-foreground font-mono text-sm mb-4">Now – Q2 2026</p>
-                  <ul className="space-y-2 text-gray-300">
-                    <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-accent shrink-0" /> Study Tor Hidden Service v3 setup</li>
-                    <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-accent shrink-0" /> Define strict legal product policy</li>
-                    <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-accent shrink-0" /> Design UI mimicking 2013 style + Cthulhu elements</li>
-                  </ul>
-                </div>
-              </motion.div>
-
-              {/* Phase 1 */}
-              <motion.div variants={fadeInUp} className="relative pl-8 md:pl-12 opacity-60 hover:opacity-100 transition-opacity">
-                <div className="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-primary border-2 border-background"></div>
-                
-                <div className="bg-card border border-primary/30 p-6 rounded-xl">
-                  <h3 className="text-xl text-white mb-2">Phase 1: Prototype</h3>
-                  <p className="text-muted-foreground font-mono text-sm mb-4">Q3 2026</p>
-                  <ul className="space-y-2 text-gray-400 text-sm">
-                    <li>• Build backend (Python/Flask + PostgreSQL + Tor proxy)</li>
-                    <li>• Implement anonymous registration & escrow logic</li>
-                    <li>• Integrate $CTHULHU + crypto payments</li>
-                  </ul>
-                </div>
-              </motion.div>
-
-              {/* Phase 2 */}
-              <motion.div variants={fadeInUp} className="relative pl-8 md:pl-12 opacity-60 hover:opacity-100 transition-opacity">
-                <div className="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-primary border-2 border-background"></div>
-                
-                <div className="bg-card border border-primary/30 p-6 rounded-xl">
-                  <h3 className="text-xl text-white mb-2">Phase 2: Beta Launch</h3>
-                  <p className="text-muted-foreground font-mono text-sm mb-4">Q4 2026</p>
-                  <ul className="space-y-2 text-gray-400 text-sm">
-                    <li>• Private .onion testing with invited legal sellers</li>
-                    <li>• Focus: digital goods only at first</li>
-                  </ul>
-                </div>
-              </motion.div>
-
-              {/* Phase 3 & 4 */}
-              <motion.div variants={fadeInUp} className="relative pl-8 md:pl-12 opacity-60 hover:opacity-100 transition-opacity">
-                <div className="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-primary border-2 border-background"></div>
-                
-                <div className="bg-card border border-primary/30 p-6 rounded-xl">
-                  <h3 className="text-xl text-white mb-2">Phase 3 & 4: Growth & Maturity</h3>
-                  <p className="text-muted-foreground font-mono text-sm mb-4">2027+</p>
-                  <ul className="space-y-2 text-gray-400 text-sm">
-                    <li>• Publish .onion link via privacy forums / X / Telegram</li>
-                    <li>• Add Monero auto-swap & vendor verification</li>
-                    <li>• Community governance votes</li>
-                  </ul>
-                </div>
-              </motion.div>
-
-            </div>
-            
-            <Disclaimer className="mt-16" />
-          </motion.div>
-        </section>
-
-        {/* SECTION 7: GUARDRAILS */}
-        <section id="guardrails" className="min-h-screen py-24 px-6 md:px-12 bg-primary/5 flex flex-col justify-center border-t border-primary/20">
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}
-            className="max-w-5xl mx-auto w-full"
-          >
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl mb-12 flex items-center gap-4 text-accent">
-              <Shield className="w-10 h-10" />
-              Legal & Ethical Guardrails
-            </motion.h2>
-
-            <motion.div variants={fadeInUp} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-              {[
-                "100% compliant goods only – auto + manual moderation",
-                "No logs of user activity beyond necessary escrow data",
-                "Public legal disclaimer explicitly required on every page",
-                "Cooperate with law enforcement if subpoenaed (standard practice)",
-                "Goal: Prove anonymous commerce can be ethical and legal"
-              ].map((text, i) => (
-                <div key={i} className="flex items-start gap-4 p-4 bg-black border border-primary/30 rounded-lg hover:border-accent transition-colors">
-                  <CheckCircle2 className="w-6 h-6 text-accent shrink-0" />
-                  <p className="text-gray-300 font-mono text-sm leading-relaxed">{text}</p>
-                </div>
-              ))}
+            <motion.div variants={fadeUp} style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+              <a
+                href="https://www.torproject.org/download/"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: "inline-block",
+                  padding: "12px 28px",
+                  border: `1px solid ${G}`,
+                  color: "#000",
+                  background: G,
+                  fontFamily: "'Share Tech Mono', monospace",
+                  fontSize: 13,
+                  letterSpacing: "0.1em",
+                  cursor: "pointer",
+                  textDecoration: "none",
+                  boxShadow: `0 0 20px ${G}66`,
+                  borderRadius: 3,
+                }}
+              >
+                ↓ DOWNLOAD TOR BROWSER
+              </a>
+              <div style={{
+                padding: "12px 28px",
+                border: `1px solid ${G}55`,
+                color: G,
+                fontFamily: "'Share Tech Mono', monospace",
+                fontSize: 13,
+                letterSpacing: "0.1em",
+                borderRadius: 3,
+              }}>
+                $CTHU POWERED
+              </div>
             </motion.div>
 
-            <motion.div variants={fadeInUp}>
-              <TerminalWindow title="legal_disclaimer.txt" className="border-red-500/50">
-                <span className="text-accent">POLICY:</span> Silk Road 2.0 enforces a strict legal-only product policy across all categories. 
-                <br/><br/>
-                We do not condone, endorse, or facilitate the sale of illicit goods, services, or materials. All vendors are subject to verification. All goods must comply with local and international law. Privacy-preserving technologies like Tor and cryptocurrency are tools for freedom — not crime.
-                <br/><br/>
-                <span className="text-accent animate-pulse">End of file.</span>
+            <motion.div variants={fadeUp} style={{ marginTop: 48, color: GDIM, fontSize: 11, letterSpacing: "0.2em" }}>
+              ▼ SCROLL TO INITIALIZE
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* SECTION 1: ACCESS */}
+        <section id="access" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto" }}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.div variants={fadeUp}>
+              <SectionTitle>HOW TO ACCESS</SectionTitle>
+            </motion.div>
+
+            <motion.div variants={fadeUp} style={{ marginBottom: 32 }}>
+              <TerminalWindow title="access@silkroad2:~$">
+                <div style={{ color: GDIM, marginBottom: 4 }}># Requires Tor Browser — works on Windows, Mac, Linux, Android</div>
+                <div style={{ marginTop: 12 }}>
+                  {[
+                    { n: "01", cmd: "Download Tor Browser", sub: "https://www.torproject.org/download/" },
+                    { n: "02", cmd: "Install & open Tor Browser", sub: "Do NOT use a regular browser — .onion links only work in Tor" },
+                    { n: "03", cmd: "Paste the onion address", sub: ONION },
+                    { n: "04", cmd: "Create an account", sub: "Username + passphrase only. No email. No KYC. 30 seconds." },
+                    { n: "05", cmd: "Fund your wallet", sub: "Deposit $CTHU or SOL — live on-chain confirmation" },
+                    { n: "06", cmd: "Browse & buy", sub: "Physical goods → PGP-encrypted shipping. Digital → instant email delivery." },
+                  ].map((step) => (
+                    <div key={step.n} style={{ marginBottom: 16 }}>
+                      <div style={{ color: G }}>
+                        <span style={{ color: GDIM }}>[{step.n}]</span> {step.cmd}
+                      </div>
+                      <div style={{ color: GDIM, paddingLeft: 40, fontSize: 12, marginTop: 2 }}>→ {step.sub}</div>
+                    </div>
+                  ))}
+                </div>
               </TerminalWindow>
             </motion.div>
 
+            <motion.div variants={fadeUp} style={{ ...CARD, borderColor: `${G}55` }}>
+              <div style={{ fontSize: 12, color: GDIM, marginBottom: 12, letterSpacing: "0.15em" }}>⚠ SECURITY REMINDERS</div>
+              {[
+                "Only access via Tor Browser — never paste the .onion link into Chrome or Firefox",
+                "Disable JavaScript only if you need maximum anonymity (site still functions)",
+                "Use a strong unique passphrase — there is no password reset",
+                "For physical goods: always use PGP-encrypted messages for your address",
+                "Make a small test purchase before large orders",
+              ].map((tip, i) => (
+                <div key={i} style={{ color: GDIM, fontSize: 12, marginBottom: 6, paddingLeft: 12, borderLeft: `2px solid ${G}33` }}>
+                  {tip}
+                </div>
+              ))}
+            </motion.div>
           </motion.div>
         </section>
 
-        {/* SECTION 8: CLOSING */}
-        <section id="closing" className="min-h-screen py-24 px-6 md:px-12 flex flex-col justify-center items-center text-center border-t border-primary/20 relative overflow-hidden">
-          <div className="absolute inset-0 z-0 opacity-20 bg-primary/10"></div>
-          
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}
-            className="max-w-4xl mx-auto w-full z-10 flex flex-col items-center"
-          >
-            <motion.img 
-              variants={fadeInUp}
-              src={`${import.meta.env.BASE_URL}images/cthulhu-mascot.png`}
-              alt="Cthulhu Mascot Final"
-              className="w-48 h-48 rounded-full border-4 border-accent mb-8 box-glow-accent object-cover"
-            />
+        {/* SECTION 2: FEATURES */}
+        <section id="features" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto" }}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.div variants={fadeUp}><SectionTitle>MARKETPLACE FEATURES</SectionTitle></motion.div>
 
-            <motion.h2 variants={fadeInUp} className="text-5xl md:text-7xl font-bold text-white mb-6">
-              Silk Road 2.0 <br/>
-              <span className="text-accent text-3xl md:text-5xl">2026 Reimagined</span>
-            </motion.h2>
+            <motion.div variants={stagger} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
+              {[
+                { icon: "⚡", title: "INSTANT CTHU PAYMENTS", desc: "Direct wallet-to-vendor. Zero middlemen. Live on-chain confirmation via Solana mainnet." },
+                { icon: "◎", title: "SOL ESCROW", desc: "Ed25519 escrow wallet per order. Funds auto-swept to vendor on confirmation." },
+                { icon: "🔐", title: "ENCRYPTED MESSAGING", desc: "End-to-end buyer ↔ vendor messaging. No logs. No plaintext storage." },
+                { icon: "📦", title: "PHYSICAL GOODS", desc: "PGP-encrypted shipping address at checkout. Vendor never sees plaintext unless decrypted." },
+                { icon: "💾", title: "DIGITAL GOODS", desc: "Instant email delivery after payment confirms on-chain. No waiting." },
+                { icon: "🛒", title: "VENDOR STOREFRONTS", desc: "Image uploads, inventory management, category listings, order history." },
+                { icon: "📊", title: "LIVE PRICE FEEDS", desc: "Real-time CTHU/SOL/USD prices from DexScreener. Always accurate." },
+                { icon: "🌐", title: "100% TOR-NATIVE", desc: "No clearnet dependency. No CDN. No IP leaks. Fully self-hosted .onion service." },
+              ].map((f) => (
+                <motion.div key={f.title} variants={fadeUp} style={{ ...CARD }}>
+                  <div style={{ fontSize: 22, marginBottom: 10 }}>{f.icon}</div>
+                  <div style={{ color: G, fontSize: 13, marginBottom: 8, letterSpacing: "0.08em" }}>{f.title}</div>
+                  <div style={{ color: GDIM, fontSize: 12, lineHeight: 1.6 }}>{f.desc}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </section>
 
-            <motion.p variants={fadeInUp} className="text-2xl text-gray-300 font-mono mb-8 italic">
-              "Wake the depths – legally."
-            </motion.p>
+        {/* SECTION 3: PAYMENT */}
+        <section id="payment" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto" }}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.div variants={fadeUp}><SectionTitle>PAYMENT SYSTEM</SectionTitle></motion.div>
 
-            <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto mb-12">
-              A privacy-first marketplace that revives the look & feel of 2013 darknet UX – but sells only lawful goods, accepts $CTHULHU, and is guarded by a cute green Cthulhu.
-            </motion.p>
-
-            <motion.div variants={fadeInUp} className="inline-block border border-accent/50 bg-accent/10 px-8 py-4 rounded-full backdrop-blur-md">
-              <span className="text-accent font-mono tracking-widest uppercase box-glow text-lg font-bold">
-                This Hidden Site Has Risen Again
-              </span>
+            <motion.div variants={fadeUp} style={{ marginBottom: 24 }}>
+              <TerminalWindow title="payment@silkroad2:~$">
+                <div>
+                  <span style={{ color: GDIM }}>$ </span>payment --method CTHU --status
+                </div>
+                <div style={{ marginTop: 8, color: G }}>
+                  ✓ Direct vendor wallet transfer<br />
+                  ✓ Live balance snapshot on session create<br />
+                  ✓ Delta check: received ≥ amount × 0.99<br />
+                  ✓ Confirmed on Solana mainnet (QuickNode RPC)<br />
+                  ✓ Auto-expires unpaid sessions after 30min
+                </div>
+                <div style={{ marginTop: 16 }}>
+                  <span style={{ color: GDIM }}>$ </span>payment --method SOL --status
+                </div>
+                <div style={{ marginTop: 8, color: G }}>
+                  ✓ Ed25519 escrow wallet per order<br />
+                  ✓ Funds auto-swept to vendor on confirm<br />
+                  ✓ Multi-retry RPC validation<br />
+                  ✓ Falls back to public mainnet if primary RPC slow
+                </div>
+              </TerminalWindow>
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="mt-24 text-xs text-muted-foreground font-mono flex flex-col gap-2">
-              <p>No Illegal Goods | Privacy First | $CTHULHU Powered</p>
-              <p>© 2026 Silk Road 2.0</p>
+            <motion.div variants={stagger} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
+              {[
+                { label: "$CTHU", sub: "Solana Token", badge: "PREFERRED", desc: "Fastest. Cheapest. Native token of the marketplace." },
+                { label: "SOL", sub: "Solana Native", badge: "ESCROW", desc: "Ed25519 escrow. Auto-swept. Trustless." },
+              ].map((p) => (
+                <motion.div key={p.label} variants={fadeUp} style={{
+                  ...CARD,
+                  borderColor: `${G}66`,
+                  boxShadow: `0 0 20px ${G}22`,
+                  textAlign: "center",
+                }}>
+                  <div style={{ color: G, fontSize: 28, marginBottom: 6, textShadow: `0 0 12px ${G}` }}>{p.label}</div>
+                  <div style={{ color: GDIM, fontSize: 11, marginBottom: 8 }}>{p.sub}</div>
+                  <div style={{
+                    display: "inline-block", padding: "2px 10px",
+                    border: `1px solid ${G}`, color: G, fontSize: 10, letterSpacing: "0.15em",
+                    marginBottom: 12,
+                  }}>{p.badge}</div>
+                  <div style={{ color: GDIM, fontSize: 12 }}>{p.desc}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* SECTION 4: TOKEN */}
+        <section id="token" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto" }}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.div variants={fadeUp}><SectionTitle>$CTHU TOKEN</SectionTitle></motion.div>
+
+            <motion.div variants={fadeUp} style={{ ...CARD, borderColor: `${G}66`, boxShadow: `0 0 30px ${G}22`, marginBottom: 24 }}>
+              <div style={{ textAlign: "center", marginBottom: 24 }}>
+                <div style={{ fontSize: 48, marginBottom: 8, color: G, textShadow: `0 0 20px ${G}` }}>🐙</div>
+                <div style={{ fontSize: 22, color: G, letterSpacing: "0.1em", textShadow: `0 0 10px ${G}` }}>
+                  CTHULHU TOKEN
+                </div>
+                <div style={{ color: GDIM, fontSize: 12, marginTop: 4 }}>Solana Mainnet • Native Marketplace Currency</div>
+              </div>
+
+              <div style={{ background: "#000", border: `1px solid ${G}33`, borderRadius: 4, padding: "12px 16px", marginBottom: 16 }}>
+                <div style={{ fontSize: 11, color: GDIM, marginBottom: 4, letterSpacing: "0.15em" }}>CONTRACT ADDRESS</div>
+                <div style={{ fontSize: 12, color: G, wordBreak: "break-all" }}>{CTHU_CA}</div>
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
+                {[
+                  { label: "NETWORK", value: "Solana Mainnet" },
+                  { label: "SYMBOL", value: "$CTHU" },
+                  { label: "USE CASE", value: "Marketplace Payments" },
+                  { label: "DISCOUNT", value: "Exclusive for $CTHU holders" },
+                ].map((item) => (
+                  <div key={item.label} style={{ background: "#000", border: `1px solid ${G}22`, borderRadius: 4, padding: "10px 14px" }}>
+                    <div style={{ color: GDIM, fontSize: 10, letterSpacing: "0.15em", marginBottom: 4 }}>{item.label}</div>
+                    <div style={{ color: G, fontSize: 13 }}>{item.value}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div variants={fadeUp} style={{ textAlign: "center" }}>
+              <a
+                href={`https://dexscreener.com/solana/${CTHU_CA}`}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: "inline-block",
+                  padding: "12px 32px",
+                  border: `1px solid ${G}`,
+                  color: G,
+                  background: "transparent",
+                  fontFamily: "'Share Tech Mono', monospace",
+                  fontSize: 13,
+                  letterSpacing: "0.1em",
+                  cursor: "pointer",
+                  textDecoration: "none",
+                  borderRadius: 3,
+                  boxShadow: `0 0 15px ${G}33`,
+                }}
+              >
+                VIEW $CTHU CHART →
+              </a>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* SECTION 5: ROADMAP */}
+        <section id="roadmap" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto" }}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.div variants={fadeUp}><SectionTitle>DEVELOPMENT ROADMAP</SectionTitle></motion.div>
+
+            <motion.div variants={stagger} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              {[
+                {
+                  phase: "PHASE 0",
+                  title: "Foundation",
+                  status: "COMPLETE",
+                  items: [
+                    "Tor hidden service v3 setup",
+                    "Flat-file db.json database (zero external deps)",
+                    "Dark web aesthetic — black/#00ff41/Share Tech Mono",
+                    "$CTHU + SOL payment integration",
+                    "Ed25519 escrow with auto-sweep",
+                  ],
+                },
+                {
+                  phase: "PHASE 1",
+                  title: "Live Marketplace",
+                  status: "LIVE ✓",
+                  items: [
+                    "Vendor storefronts with image uploads",
+                    "Buyer portal with order history",
+                    "Live on-chain payment verification",
+                    "Encrypted buyer-vendor messaging",
+                    "Digital delivery via email",
+                  ],
+                },
+                {
+                  phase: "PHASE 2",
+                  title: "Hardening",
+                  status: "IN PROGRESS",
+                  items: [
+                    "Multi-vendor invite system",
+                    "PGP key upload for vendors",
+                    "Dispute resolution system",
+                    "2FA via TOTP authenticator",
+                    "Vendor reputation & review system",
+                  ],
+                },
+                {
+                  phase: "PHASE 3",
+                  title: "Scale",
+                  status: "PLANNED",
+                  items: [
+                    "Multiple hidden service mirrors",
+                    "Automated canary page",
+                    "Advanced escrow with time-locks",
+                    "Mobile-optimized Tor Browser UI",
+                    "$CTHU staking for vendor verification",
+                  ],
+                },
+              ].map((phase, i) => (
+                <motion.div key={phase.phase} variants={fadeUp} style={{
+                  ...CARD,
+                  borderColor: phase.status.includes("LIVE") ? `${G}88` : `${G}33`,
+                  boxShadow: phase.status.includes("LIVE") ? `0 0 20px ${G}22` : "none",
+                }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
+                    <div>
+                      <div style={{ color: GDIM, fontSize: 11, letterSpacing: "0.2em", marginBottom: 2 }}>{phase.phase}</div>
+                      <div style={{ color: G, fontSize: 16 }}>{phase.title}</div>
+                    </div>
+                    <div style={{
+                      padding: "4px 12px",
+                      border: `1px solid ${phase.status.includes("LIVE") ? G : G + "44"}`,
+                      color: phase.status.includes("LIVE") ? G : GDIM,
+                      fontSize: 11,
+                      letterSpacing: "0.12em",
+                      boxShadow: phase.status.includes("LIVE") ? `0 0 10px ${G}44` : "none",
+                    }}>
+                      {phase.status}
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    {phase.items.map((item) => (
+                      <div key={item} style={{ color: GDIM, fontSize: 12, paddingLeft: 12, borderLeft: `2px solid ${G}33` }}>
+                        {phase.status.includes("LIVE") || phase.status === "COMPLETE" ? "✓" : "·"} {item}
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* SECTION 6: CLOSING */}
+        <section id="closing" style={{
+          padding: "80px 40px",
+          maxWidth: 900,
+          margin: "0 auto",
+          textAlign: "center",
+        }}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.div variants={fadeUp}>
+              <div style={{ fontSize: 48, marginBottom: 16 }}>🐙</div>
+              <h2 className="animate-flicker" style={{
+                fontFamily: "'Share Tech Mono', monospace",
+                fontSize: "clamp(20px, 5vw, 36px)",
+                color: G,
+                textShadow: `0 0 15px ${G}`,
+                marginBottom: 16,
+              }}>
+                THE DARK WEB HAS ITS MARKETPLACE BACK
+              </h2>
+              <div style={{ color: GDIM, fontSize: 13, marginBottom: 40, lineHeight: 1.7, maxWidth: 600, margin: "0 auto 40px" }}>
+                They shut it down. We rebuilt it on the blockchain.<br />
+                No banks. No governments. No middlemen.<br />
+                Powered by $CTHU on Solana. Buried in Tor.
+              </div>
+            </motion.div>
+
+            <motion.div variants={fadeUp} style={{ marginBottom: 32 }}>
+              <div style={{ ...CARD, borderColor: `${G}55`, marginBottom: 16 }}>
+                <div style={{ fontSize: 11, color: GDIM, marginBottom: 8, letterSpacing: "0.2em" }}>ACCESS NOW</div>
+                <div style={{ fontSize: "clamp(10px, 2.5vw, 14px)", color: G, wordBreak: "break-all", textShadow: `0 0 8px ${G}88` }}>
+                  {ONION}
+                </div>
+              </div>
+              <div style={{ color: GDIM, fontSize: 11 }}>Requires Tor Browser — <a href="https://www.torproject.org/download/" target="_blank" rel="noreferrer" style={{ color: G }}>download here</a></div>
+            </motion.div>
+
+            <motion.div variants={fadeUp}>
+              <div style={{ color: GDIM, fontSize: 11, letterSpacing: "0.2em" }}>
+                ■ SESSION TERMINATED — CONNECTION CLOSED ■
+              </div>
             </motion.div>
           </motion.div>
         </section>

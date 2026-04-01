@@ -9,40 +9,54 @@ export function Sidebar({ sections, activeId }: SidebarProps) {
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      window.scrollTo({
-        top: element.offsetTop,
-        behavior: "smooth",
-      });
+      window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
     }
   };
 
   return (
-    <nav className="fixed left-0 top-0 bottom-0 w-64 bg-background/95 border-r border-primary/30 z-40 hidden lg:flex flex-col backdrop-blur-md">
-      <div className="p-6 border-b border-primary/30 flex items-center gap-3">
-        <Cable className="w-8 h-8 text-accent" />
-        <h1 className="text-xl font-bold text-accent text-glow m-0">SR 2.0</h1>
+    <nav style={{
+      position: 'fixed', left: 0, top: 0, bottom: 0, width: '220px',
+      background: 'rgba(0,0,0,0.97)',
+      borderRight: '1px solid #00ff4133',
+      zIndex: 40,
+      display: 'none',
+      flexDirection: 'column',
+      backdropFilter: 'blur(8px)',
+    }} className="lg:flex">
+      <div style={{ padding: '20px 16px', borderBottom: '1px solid #00ff4133', display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <Cable style={{ width: 20, height: 20, color: '#00ff41' }} />
+        <span style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '16px', color: '#00ff41', textShadow: '0 0 10px #00ff41' }}>
+          SR 2.0
+        </span>
       </div>
-      
-      <div className="flex-1 overflow-y-auto py-6 flex flex-col gap-2 px-4">
+
+      <div style={{ flex: 1, overflowY: 'auto', padding: '16px 8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
         {sections.map((sec) => (
           <button
             key={sec.id}
             onClick={() => scrollTo(sec.id)}
-            className={`
-              text-left px-4 py-3 rounded-md font-mono text-sm transition-all duration-300
-              ${activeId === sec.id 
-                ? "bg-primary/20 text-accent border border-accent/50 box-glow-accent" 
-                : "text-muted-foreground hover:text-accent hover:bg-primary/10 border border-transparent"}
-            `}
+            style={{
+              textAlign: 'left',
+              padding: '10px 12px',
+              background: activeId === sec.id ? 'rgba(0,255,65,0.08)' : 'transparent',
+              border: activeId === sec.id ? '1px solid #00ff4166' : '1px solid transparent',
+              borderRadius: '4px',
+              fontFamily: "'Share Tech Mono', monospace",
+              fontSize: '12px',
+              color: activeId === sec.id ? '#00ff41' : '#00ff4177',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+              boxShadow: activeId === sec.id ? '0 0 10px rgba(0,255,65,0.2)' : 'none',
+            }}
           >
-            {activeId === sec.id && <span className="mr-2 animate-blink">&gt;</span>}
+            {activeId === sec.id && <span style={{ marginRight: '6px', animation: 'blink 1s step-end infinite' }}>{'>'}</span>}
             {sec.label}
           </button>
         ))}
       </div>
 
-      <div className="p-4 border-t border-primary/30 text-xs text-muted-foreground font-mono">
-        v1.0.0
+      <div style={{ padding: '12px 16px', borderTop: '1px solid #00ff4122', fontSize: '11px', color: '#00ff4155', fontFamily: "'Share Tech Mono', monospace" }}>
+        v2.0.1 — LIVE
       </div>
     </nav>
   );
