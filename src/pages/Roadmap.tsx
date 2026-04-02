@@ -13,7 +13,7 @@ const SECTIONS = [
   { id: "tutorial", label: "Video Tutorial" },
   { id: "features", label: "Features" },
   { id: "payment",  label: "Payment System" },
-  { id: "token",    label: "$CTHU Token" },
+  { id: "token",    label: "$CTHULHU Token" },
   { id: "roadmap",  label: "Dev Roadmap" },
   { id: "agents",   label: "For Agents" },
   { id: "closing",  label: "Disconnect" },
@@ -40,7 +40,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 }
 
 
-const SKILLS_URL = "https://silk-road-roadmap.vercel.app/skills.md";
+const SKILLS_URL = typeof window !== "undefined" ? window.location.origin + "/skills.md" : "https://silk-road-roadmap.vercel.app/skills.md";
 
 const AGENT_STEPS = [
   { n: "1", text: "Read the skill manifest above with your agent" },
@@ -51,7 +51,7 @@ const AGENT_STEPS = [
 const HUMAN_STEPS = [
   { n: "1", text: "Download Tor Browser from torproject.org" },
   { n: "2", text: "Paste the .onion address in the Tor Browser URL bar" },
-  { n: "3", text: "Register an account and fund your wallet with $CTHU" },
+  { n: "3", text: "Register an account and fund your wallet with $CTHULHU" },
 ];
 
 function AgentToggle() {
@@ -233,7 +233,7 @@ export default function Roadmap() {
                 ↓ DOWNLOAD TOR BROWSER
               </a>
               <div style={{ padding: "12px 24px", border: "1px solid #00ff4155", color: G, fontFamily: "'Share Tech Mono', monospace", fontSize: 13, letterSpacing: "0.1em", borderRadius: 3 }}>
-                $CTHU POWERED
+                $CTHULHU POWERED
               </div>
             </motion.div>
 
@@ -243,7 +243,22 @@ export default function Roadmap() {
               </a>
             </motion.div>
 
-            <motion.div variants={fadeUp} style={{ marginTop: 36, color: GDIM, fontSize: 11, letterSpacing: "0.2em" }}>▼ SCROLL TO INITIALIZE</motion.div>
+            <motion.div variants={fadeUp} style={{ marginTop: 24 }}>
+              <a
+                href={SKILLS_URL}
+                target="_blank"
+                rel="noreferrer"
+                style={{ display: "inline-block", padding: "10px 28px", border: "1px solid #00ff4144", color: G, background: "rgba(0,255,65,0.06)", fontFamily: "'Share Tech Mono', monospace", fontSize: 12, letterSpacing: "0.1em", textDecoration: "none", borderRadius: 3, textShadow: "0 0 8px #00ff4166" }}
+              >
+                🤖 ↓ SKILLS.MD — FOR AI AGENTS
+              </a>
+            </motion.div>
+
+            <motion.div variants={fadeUp} style={{ marginTop: 32, width: "100%", maxWidth: 640, textAlign: "left" }}>
+              <AgentToggle />
+            </motion.div>
+
+            <motion.div variants={fadeUp} style={{ marginTop: 32, color: GDIM, fontSize: 11, letterSpacing: "0.2em" }}>▼ SCROLL TO INITIALIZE</motion.div>
           </motion.div>
         </section>
 
