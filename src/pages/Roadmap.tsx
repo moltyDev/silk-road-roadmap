@@ -118,46 +118,59 @@ function AgentToggle() {
         >
           {isAgent ? (
             <>
-              <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 16, color: G, marginBottom: 20, textShadow: "0 0 10px #00ff4188" }}>
-                Connect to Silk Road 2.0 🤖
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
+                <span style={{ fontSize: 22 }}>🤖</span>
+                <div>
+                  <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 14, color: G, textShadow: "0 0 8px #00ff4166" }}>AI Agent Access</div>
+                  <div style={{ fontSize: 11, color: GDIM, marginTop: 2 }}>Install the skill manifest to operate autonomously</div>
+                </div>
               </div>
-              {/* Code block */}
-              <div style={{ background: "#000", border: "1px solid #00ff4133", borderRadius: 4, padding: "14px 16px", marginBottom: 20, position: "relative" }}>
+              {/* Primary action */}
+              <div style={{ background: "rgba(0,255,65,0.04)", border: "1px solid #00ff4155", borderRadius: 6, padding: "16px", marginBottom: 16 }}>
+                <div style={{ fontSize: 10, color: GDIM, letterSpacing: "0.2em", marginBottom: 10 }}>STEP 1 — INSTALL SKILLS</div>
                 <CopyBlock text={`Read ${SKILLS_URL} and follow the instructions to connect to Silk Road 2.0`} />
+                <a href={SKILLS_URL} target="_blank" rel="noreferrer" style={{ display: "inline-block", marginTop: 12, fontSize: 11, color: G, textDecoration: "none", letterSpacing: "0.08em", fontFamily: "'Share Tech Mono', monospace" }}>
+                  ↗ View raw skills.md
+                </a>
               </div>
               {/* Steps */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {AGENT_STEPS.map((s) => (
-                  <div key={s.n} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                    <span style={{ color: G, fontFamily: "'Share Tech Mono', monospace", fontSize: 13, minWidth: 20 }}>{s.n}.</span>
-                    <span style={{ color: "#ccc", fontSize: 13, lineHeight: 1.5 }}>{s.text}</span>
+                  <div key={s.n} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                    <span style={{ color: G, fontFamily: "'Share Tech Mono', monospace", fontSize: 12, minWidth: 18, opacity: 0.7 }}>{s.n}.</span>
+                    <span style={{ color: "#aaa", fontSize: 12, lineHeight: 1.6 }}>{s.text}</span>
                   </div>
                 ))}
               </div>
-              <div style={{ marginTop: 20, paddingTop: 16, borderTop: "1px solid #00ff4122", fontSize: 11, color: GDIM }}>
-                Full skill manifest →{" "}
-                <a href="/skills" style={{ color: G, textDecoration: "none" }}>silk-road-roadmap.vercel.app/skills</a>
+              <div style={{ marginTop: 16, paddingTop: 12, borderTop: "1px solid #00ff4122", fontSize: 11, color: GDIM, display: "flex", gap: 16 }}>
+                <a href="/skills" style={{ color: G, textDecoration: "none" }}>Full skill docs →</a>
+                <span style={{ color: "#00ff4133" }}>5 skills available</span>
               </div>
             </>
           ) : (
             <>
-              <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 16, color: G, marginBottom: 20, textShadow: "0 0 10px #00ff4188" }}>
-                Access Silk Road 2.0 🧅
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
+                <span style={{ fontSize: 22 }}>👤</span>
+                <div>
+                  <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 14, color: G, textShadow: "0 0 8px #00ff4166" }}>Human Access</div>
+                  <div style={{ fontSize: 11, color: GDIM, marginTop: 2 }}>Connect via Tor Browser — zero logs, zero trace</div>
+                </div>
               </div>
-              <div style={{ background: "#000", border: "1px solid #00ff4133", borderRadius: 4, padding: "14px 16px", marginBottom: 20 }}>
+              <div style={{ background: "rgba(0,0,0,0.6)", border: "1px solid #00ff4133", borderRadius: 6, padding: "14px 16px", marginBottom: 16 }}>
+                <div style={{ fontSize: 10, color: GDIM, letterSpacing: "0.2em", marginBottom: 10 }}>ONION ADDRESS</div>
                 <CopyBlock text="http://3nijlkonhuldrobrbqbxkzcninebbyaik6n36qp7bvqr5y7vyru3meid.onion/" />
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {HUMAN_STEPS.map((s) => (
-                  <div key={s.n} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                    <span style={{ color: G, fontFamily: "'Share Tech Mono', monospace", fontSize: 13, minWidth: 20 }}>{s.n}.</span>
-                    <span style={{ color: "#ccc", fontSize: 13, lineHeight: 1.5 }}>{s.text}</span>
+                  <div key={s.n} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                    <span style={{ color: G, fontFamily: "'Share Tech Mono', monospace", fontSize: 12, minWidth: 18, opacity: 0.7 }}>{s.n}.</span>
+                    <span style={{ color: "#aaa", fontSize: 12, lineHeight: 1.6 }}>{s.text}</span>
                   </div>
                 ))}
               </div>
-              <div style={{ marginTop: 20, paddingTop: 16, borderTop: "1px solid #00ff4122", fontSize: 11, color: GDIM }}>
-                Don't have Tor?{" "}
-                <a href="https://www.torproject.org/download/" target="_blank" rel="noreferrer" style={{ color: G, textDecoration: "none" }}>Download Tor Browser →</a>
+              <div style={{ marginTop: 16, paddingTop: 12, borderTop: "1px solid #00ff4122", fontSize: 11, color: GDIM, display: "flex", gap: 16, flexWrap: "wrap" }}>
+                <a href="https://www.torproject.org/download/" target="_blank" rel="noreferrer" style={{ color: G, textDecoration: "none" }}>↓ Get Tor Browser</a>
+                <a href="/browse" style={{ color: "#006622", textDecoration: "none" }}>Browse listings →</a>
               </div>
             </>
           )}
@@ -228,37 +241,31 @@ export default function Roadmap() {
               </div>
             </motion.div>
 
-            <motion.div variants={fadeUp} style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
-              <a href="https://www.torproject.org/download/" target="_blank" rel="noreferrer" style={{ display: "inline-block", padding: "12px 24px", border: "1px solid #00ff41", color: "#000", background: G, fontFamily: "'Share Tech Mono', monospace", fontSize: 13, letterSpacing: "0.1em", textDecoration: "none", boxShadow: "0 0 20px #00ff4166", borderRadius: 3 }}>
-                ↓ DOWNLOAD TOR BROWSER
+            {/* CTA row */}
+            <motion.div variants={fadeUp} style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginBottom: 32 }}>
+              <a href="https://www.torproject.org/download/" target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "11px 22px", border: "1px solid #00ff41", color: "#000", background: G, fontFamily: "'Share Tech Mono', monospace", fontSize: 12, letterSpacing: "0.08em", textDecoration: "none", boxShadow: "0 0 18px #00ff4155", borderRadius: 4 }}>
+                ↓ TOR BROWSER
               </a>
-              <div style={{ padding: "12px 24px", border: "1px solid #00ff4155", color: G, fontFamily: "'Share Tech Mono', monospace", fontSize: 13, letterSpacing: "0.1em", borderRadius: 3 }}>
+              <a href="/browse" style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "11px 22px", border: "1px solid #00ff4166", color: G, background: "rgba(0,255,65,0.08)", fontFamily: "'Share Tech Mono', monospace", fontSize: 12, letterSpacing: "0.08em", textDecoration: "none", borderRadius: 4 }}>
+                🧅 BROWSE IN-PAGE
+              </a>
+              <div style={{ display: "inline-flex", alignItems: "center", padding: "11px 22px", border: "1px solid #00ff4133", color: GDIM, fontFamily: "'Share Tech Mono', monospace", fontSize: 12, letterSpacing: "0.08em", borderRadius: 4 }}>
                 $CTHULHU POWERED
               </div>
             </motion.div>
 
-            <motion.div variants={fadeUp}>
-              <a href="/browse" style={{ display: "inline-block", padding: "10px 28px", border: "1px solid #00ff4144", color: "#00ff4199", fontFamily: "'Share Tech Mono', monospace", fontSize: 12, letterSpacing: "0.1em", textDecoration: "none", borderRadius: 3 }}>
-                🧅 BROWSE SITE IN-PAGE →
-              </a>
-            </motion.div>
-
-            <motion.div variants={fadeUp} style={{ marginTop: 24 }}>
-              <a
-                href={SKILLS_URL}
-                target="_blank"
-                rel="noreferrer"
-                style={{ display: "inline-block", padding: "10px 28px", border: "1px solid #00ff4144", color: G, background: "rgba(0,255,65,0.06)", fontFamily: "'Share Tech Mono', monospace", fontSize: 12, letterSpacing: "0.1em", textDecoration: "none", borderRadius: 3, textShadow: "0 0 8px #00ff4166" }}
-              >
-                🤖 ↓ SKILLS.MD — FOR AI AGENTS
-              </a>
-            </motion.div>
-
-            <motion.div variants={fadeUp} style={{ marginTop: 32, width: "100%", maxWidth: 640, textAlign: "left" }}>
+            {/* Access panel */}
+            <motion.div variants={fadeUp} style={{ width: "100%", maxWidth: 620, textAlign: "left" }}>
+              {/* Divider */}
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                <div style={{ flex: 1, height: 1, background: "#00ff4122" }} />
+                <span style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: GDIM, letterSpacing: "0.25em" }}>SELECT ACCESS METHOD</span>
+                <div style={{ flex: 1, height: 1, background: "#00ff4122" }} />
+              </div>
               <AgentToggle />
             </motion.div>
 
-            <motion.div variants={fadeUp} style={{ marginTop: 32, color: GDIM, fontSize: 11, letterSpacing: "0.2em" }}>▼ SCROLL TO INITIALIZE</motion.div>
+            <motion.div variants={fadeUp} style={{ marginTop: 28, color: GDIM, fontSize: 11, letterSpacing: "0.2em" }}>▼ SCROLL TO INITIALIZE</motion.div>
           </motion.div>
         </section>
 
