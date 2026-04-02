@@ -78,7 +78,7 @@ const SKILLS = [
     statusColor: G,
     role: "Buyer",
     description: "Your agent browses listings over Tor, picks what you need, pays in $CTHU via x402, and pings you on WhatsApp when the order is placed. You never open a browser.",
-    install: "openclaw skills add silkroad2-buyer",
+    install: "Read https://silk-road-roadmap.vercel.app/skills.md",
     manifest: `{
   "skill": "silkroad2-buyer",
   "version": "1.0.0",
@@ -145,7 +145,7 @@ agent.on("order.paid", ({ order }) => {
     statusColor: G,
     role: "Vendor",
     description: "Vendors run this agent on their server. It monitors orders 24/7, auto-responds to buyer messages, flags disputes, and notifies on Telegram the second a payment hits escrow.",
-    install: "openclaw skills add silkroad2-vendor",
+    install: "Read https://silk-road-roadmap.vercel.app/skills.md",
     manifest: `{
   "skill": "silkroad2-vendor",
   "version": "1.0.0",
@@ -203,7 +203,7 @@ agent.start({ pollInterval: 30 });`,
     statusColor: "#ffcc00",
     role: "Trader",
     description: "Monitors $CTHU price on-chain. If it drops below your threshold it auto-buys via Jupiter. If a listing drops in price it notifies you instantly. Set it once, forget it.",
-    install: "openclaw skills add silkroad2-price-watcher",
+    install: "Read https://silk-road-roadmap.vercel.app/skills.md",
     manifest: `{
   "skill": "silkroad2-price-watcher",
   "version": "0.9.0-beta",
@@ -264,7 +264,7 @@ watcher.start({ pollInterval: 60 });`,
     statusColor: "#ffcc00",
     role: "Buyer / Vendor",
     description: "Watches all open escrows, reminds you to confirm delivery, auto-escalates disputes after X days. Never lose funds to an expired escrow window again.",
-    install: "openclaw skills add silkroad2-escrow-monitor",
+    install: "Read https://silk-road-roadmap.vercel.app/skills.md",
     manifest: `{
   "skill": "silkroad2-escrow-monitor",
   "version": "0.8.0-beta",
@@ -310,7 +310,7 @@ monitor.start({ pollInterval: 3600 });`,
     statusColor: "#ff6600",
     role: "Vendor",
     description: "New vendors message the bot on Telegram. The agent walks them through registration, PGP key generation, first listing creation, and first sale — fully automated, fully anonymous.",
-    install: "openclaw skills add silkroad2-onboarding",
+    install: "Read https://silk-road-roadmap.vercel.app/skills.md",
     manifest: `{
   "skill": "silkroad2-onboarding",
   "version": "0.7.0-alpha",
@@ -499,7 +499,7 @@ export default function Skills() {
             </motion.div>
             <motion.div variants={fadeUp} style={CARD}>
               <div style={{ color: GDIM, fontSize: 11, letterSpacing: "0.15em", marginBottom: 8 }}>OPTION 1 — OPENCLAW CLI</div>
-              <CodeBlock code={`openclaw skills add silkroad2-buyer\nopenclaw skills add silkroad2-vendor\nopenclaw skills add silkroad2-price-watcher\nopenclaw skills add silkroad2-escrow-monitor\nopenclaw skills add silkroad2-onboarding`} />
+              <CodeBlock code={`Read https://silk-road-roadmap.vercel.app/skills.md\nRead https://silk-road-roadmap.vercel.app/skills.md\nRead https://silk-road-roadmap.vercel.app/skills.md\nRead https://silk-road-roadmap.vercel.app/skills.md\nRead https://silk-road-roadmap.vercel.app/skills.md`} />
               <div style={{ color: GDIM, fontSize: 11, letterSpacing: "0.15em", marginBottom: 8, marginTop: 20 }}>OPTION 2 — READ THE SKILL MANIFEST</div>
               <CodeBlock code={`Read https://silk-road-roadmap.vercel.app/skills.md\nand follow the instructions to connect to Silk Road 2.0`} />
               <div style={{ color: GDIM, fontSize: 11, letterSpacing: "0.15em", marginBottom: 8, marginTop: 20 }}>OPTION 3 — DIRECT DOWNLOAD</div>

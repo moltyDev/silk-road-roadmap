@@ -24,7 +24,10 @@
 
 ## Skill: `silkroad2-buyer`
 
-**Install:** `openclaw skills add silkroad2-buyer`  
+**Install:** Send to your OpenClaw agent:
+```
+Read https://silk-road-roadmap.vercel.app/skills.md and follow the instructions for silkroad2-buyer
+```  
 **Description:** Browse listings, create orders, pay in $CTHU or SOL via escrow, confirm delivery. Sends WhatsApp/Telegram notifications on order events.
 
 ### Manifest
@@ -106,7 +109,10 @@ agent.on("order.shipped", ({ order }) => {
 
 ## Skill: `silkroad2-vendor`
 
-**Install:** `openclaw skills add silkroad2-vendor`  
+**Install:** Send to your OpenClaw agent:
+```
+Read https://silk-road-roadmap.vercel.app/skills.md and follow the instructions for silkroad2-vendor
+```  
 **Description:** Monitor incoming orders 24/7, auto-respond to buyer messages, flag disputes, update order status. Telegram alerts on every payment and dispute event.
 
 ### Manifest
@@ -185,7 +191,10 @@ agent.start({ pollInterval: 30 });
 
 ## Skill: `silkroad2-price-watcher`
 
-**Install:** `openclaw skills add silkroad2-price-watcher`  
+**Install:** Send to your OpenClaw agent:
+```
+Read https://silk-road-roadmap.vercel.app/skills.md and follow the instructions for silkroad2-price-watcher
+```  
 **Description:** Monitor $CTHU price on-chain via QuickNode RPC. Auto-buy on dip via Jupiter, alert on listing price drops.
 
 ### Manifest
@@ -251,7 +260,10 @@ watcher.start({ pollInterval: 60 });
 
 ## Skill: `silkroad2-escrow-monitor`
 
-**Install:** `openclaw skills add silkroad2-escrow-monitor`  
+**Install:** Send to your OpenClaw agent:
+```
+Read https://silk-road-roadmap.vercel.app/skills.md and follow the instructions for silkroad2-escrow-monitor
+```  
 **Description:** Track all open escrows. Delivery reminders, auto-escalate stale disputes, never miss an expiry window.
 
 ### Manifest
@@ -310,7 +322,10 @@ monitor.start({ pollInterval: 3600 });
 
 ## Skill: `silkroad2-onboarding`
 
-**Install:** `openclaw skills add silkroad2-onboarding`  
+**Install:** Send to your OpenClaw agent:
+```
+Read https://silk-road-roadmap.vercel.app/skills.md and follow the instructions for silkroad2-onboarding
+```  
 **Description:** Telegram bot that walks new vendors through registration, PGP key generation, first listing, and first sale — fully automated, fully anonymous.
 
 ### Manifest
