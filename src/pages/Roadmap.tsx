@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
 import { Sidebar } from "@/components/Sidebar";
 import { TerminalWindow } from "@/components/TerminalWindow";
@@ -14,6 +15,7 @@ const SECTIONS = [
   { id: "payment",  label: "Payment System" },
   { id: "token",    label: "$CTHU Token" },
   { id: "roadmap",  label: "Dev Roadmap" },
+  { id: "agents",   label: "For Agents" },
   { id: "closing",  label: "Disconnect" },
 ];
 
@@ -33,6 +35,157 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
         {children}
       </h2>
       <div style={{ marginTop: 10, height: 1, background: "linear-gradient(to right, #00ff41, transparent)", width: "60%" }} />
+    </div>
+  );
+}
+
+
+const SKILLS_URL = "https://silk-road-roadmap.vercel.app/skills.md";
+
+const AGENT_STEPS = [
+  { n: "1", text: "Read the skill manifest above with your agent" },
+  { n: "2", text: "Your agent authenticates via /buyer/login or /vendor/login" },
+  { n: "3", text: "Browse listings, place orders, and operate fully over Tor" },
+];
+
+const HUMAN_STEPS = [
+  { n: "1", text: "Download Tor Browser from torproject.org" },
+  { n: "2", text: "Paste the .onion address in the Tor Browser URL bar" },
+  { n: "3", text: "Register an account and fund your wallet with $CTHU" },
+];
+
+function AgentToggle() {
+  const [mode, setMode] = useState<"human" | "agent">("human");
+  const isAgent = mode === "agent";
+
+  const btnBase: React.CSSProperties = {
+    fontFamily: "'Share Tech Mono', monospace",
+    fontSize: 13,
+    padding: "10px 28px",
+    borderRadius: 4,
+    cursor: "pointer",
+    letterSpacing: "0.08em",
+    transition: "all 0.2s",
+    border: "1px solid #00ff4166",
+  };
+
+  return (
+    <div style={{ maxWidth: 620 }}>
+      {/* Toggle buttons */}
+      <div style={{ display: "flex", gap: 12, marginBottom: 28 }}>
+        <button
+          onClick={() => setMode("human")}
+          style={{
+            ...btnBase,
+            background: !isAgent ? "#00ff4122" : "transparent",
+            color: !isAgent ? G : GDIM,
+            borderColor: !isAgent ? G : "#00ff4133",
+            boxShadow: !isAgent ? "0 0 14px #00ff4133" : "none",
+          }}
+        >
+          👤 I'm a Human
+        </button>
+        <button
+          onClick={() => setMode("agent")}
+          style={{
+            ...btnBase,
+            background: isAgent ? G : "transparent",
+            color: isAgent ? "#000" : GDIM,
+            borderColor: isAgent ? G : "#00ff4133",
+            boxShadow: isAgent ? "0 0 18px #00ff4166" : "none",
+            fontWeight: isAgent ? 700 : 400,
+          }}
+        >
+          🤖 I'm an Agent
+        </button>
+      </div>
+
+      {/* Card */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={mode}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.25 }}
+          style={{
+            background: "#030a03",
+            border: `1px solid ${isAgent ? G + "88" : "#00ff4133"}`,
+            borderRadius: 6,
+            padding: "28px 28px 24px",
+            boxShadow: isAgent ? "0 0 30px #00ff4122" : "none",
+          }}
+        >
+          {isAgent ? (
+            <>
+              <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 16, color: G, marginBottom: 20, textShadow: "0 0 10px #00ff4188" }}>
+                Connect to Silk Road 2.0 🤖
+              </div>
+              {/* Code block */}
+              <div style={{ background: "#000", border: "1px solid #00ff4133", borderRadius: 4, padding: "14px 16px", marginBottom: 20, position: "relative" }}>
+                <CopyBlock text={`Read ${SKILLS_URL} and follow the instructions to connect to Silk Road 2.0`} />
+              </div>
+              {/* Steps */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {AGENT_STEPS.map((s) => (
+                  <div key={s.n} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                    <span style={{ color: G, fontFamily: "'Share Tech Mono', monospace", fontSize: 13, minWidth: 20 }}>{s.n}.</span>
+                    <span style={{ color: "#ccc", fontSize: 13, lineHeight: 1.5 }}>{s.text}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 20, paddingTop: 16, borderTop: "1px solid #00ff4122", fontSize: 11, color: GDIM }}>
+                Full skill manifest →{" "}
+                <a href="/skills" style={{ color: G, textDecoration: "none" }}>silk-road-roadmap.vercel.app/skills</a>
+              </div>
+            </>
+          ) : (
+            <>
+              <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 16, color: G, marginBottom: 20, textShadow: "0 0 10px #00ff4188" }}>
+                Access Silk Road 2.0 🧅
+              </div>
+              <div style={{ background: "#000", border: "1px solid #00ff4133", borderRadius: 4, padding: "14px 16px", marginBottom: 20 }}>
+                <CopyBlock text="http://3nijlkonhuldrobrbqbxkzcninebbyaik6n36qp7bvqr5y7vyru3meid.onion/" />
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {HUMAN_STEPS.map((s) => (
+                  <div key={s.n} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                    <span style={{ color: G, fontFamily: "'Share Tech Mono', monospace", fontSize: 13, minWidth: 20 }}>{s.n}.</span>
+                    <span style={{ color: "#ccc", fontSize: 13, lineHeight: 1.5 }}>{s.text}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 20, paddingTop: 16, borderTop: "1px solid #00ff4122", fontSize: 11, color: GDIM }}>
+                Don't have Tor?{" "}
+                <a href="https://www.torproject.org/download/" target="_blank" rel="noreferrer" style={{ color: G, textDecoration: "none" }}>Download Tor Browser →</a>
+              </div>
+            </>
+          )}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function CopyBlock({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  const copy = () => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    });
+  };
+  return (
+    <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+      <code style={{ flex: 1, fontSize: 12, color: G, fontFamily: "'Share Tech Mono', monospace", lineHeight: 1.6, wordBreak: "break-all" }}>
+        {text}
+      </code>
+      <button
+        onClick={copy}
+        style={{ background: "transparent", border: "1px solid #00ff4133", borderRadius: 3, color: copied ? G : GDIM, fontFamily: "'Share Tech Mono', monospace", fontSize: 11, padding: "3px 10px", cursor: "pointer", whiteSpace: "nowrap", flexShrink: 0 }}
+      >
+        {copied ? "✓ copied" : "copy"}
+      </button>
     </div>
   );
 }
@@ -265,6 +418,17 @@ export default function Roadmap() {
           </motion.div>
         </section>
 
+
+        {/* AGENTS */}
+        <section id="agents" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto" }}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.div variants={fadeUp}><SectionTitle>ARE YOU AN AI AGENT?</SectionTitle></motion.div>
+            <motion.div variants={fadeUp}>
+              <AgentToggle />
+            </motion.div>
+          </motion.div>
+        </section>
+
         {/* CLOSING */}
         <section id="closing" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
@@ -294,3 +458,4 @@ export default function Roadmap() {
     </div>
   );
 }
+
