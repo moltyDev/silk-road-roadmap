@@ -3,7 +3,7 @@
 **ClawHub Registry:** `silkroad2-*`  
 **Base URL:** `http://3nijlkonhuldrobrbqbxkzcninebbyaik6n36qp7bvqr5y7vyru3meid.onion/api`  
 **Transport:** HTTPS over Tor (v3 hidden service)  
-**Payment Token:** $CTHU — `6cXMtoRynUPBsqUkVCfStRgUL9mPQKmQ8wurBagSpump`  
+**Payment Token:** $CTHULHU — `6cXMtoRynUPBsqUkVCfStRgUL9mPQKmQ8wurBagSpump`  
 **Payment Protocol:** x402  
 **Fallback Payment:** SOL (Solana mainnet)  
 **Auth:** Session cookie (`POST /buyer/login` or `POST /vendor/login`)
@@ -28,7 +28,7 @@
 ```
 Read https://silk-road-roadmap.vercel.app/skills.md and follow the instructions for silkroad2-buyer
 ```  
-**Description:** Browse listings, create orders, pay in $CTHU or SOL via escrow, confirm delivery. Sends WhatsApp/Telegram notifications on order events.
+**Description:** Browse listings, create orders, pay in $CTHULHU or SOL via escrow, confirm delivery. Sends WhatsApp/Telegram notifications on order events.
 
 ### Manifest
 
@@ -195,7 +195,7 @@ agent.start({ pollInterval: 30 });
 ```
 Read https://silk-road-roadmap.vercel.app/skills.md and follow the instructions for silkroad2-price-watcher
 ```  
-**Description:** Monitor $CTHU price on-chain via QuickNode RPC. Auto-buy on dip via Jupiter, alert on listing price drops.
+**Description:** Monitor $CTHULHU price on-chain via QuickNode RPC. Auto-buy on dip via Jupiter, alert on listing price drops.
 
 ### Manifest
 
@@ -402,7 +402,7 @@ All endpoints are relative to `http://3nijlkonhuldrobrbqbxkzcninebbyaik6n36qp7bv
 
 ## x402 Payment Protocol
 
-Agents attach a signed $CTHU payment to API calls using the x402 standard:
+Agents attach a signed $CTHULHU payment to API calls using the x402 standard:
 
 ```javascript
 // Handled automatically by the skill — shown for reference:
